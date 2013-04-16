@@ -56,6 +56,32 @@ public class DBFacade {
         return o;
     }
     
+    //Sebastian
+    public Customer getCustomer(int cID) {
+        Connection conn = null;
+        Customer c = null;
+        try {
+            conn = getConnection();
+            c = new CustomerMapper().getCustomer(conn, cID);
+        } finally {
+            releaseConnection(conn);
+        }
+        return c;
+    }
+    
+    // Frederik
+    public String getCity(int zip){
+        Connection conn = null;
+        String s = null;
+        try {
+            conn = getConnection();
+            s = new Mapper().getCity(conn, zip);
+        } finally {
+            releaseConnection(conn);
+        }
+        return s;
+    }
+    
     public void addDirtyOrder(Order o){
         if(uow != null){
             uow.addDirtyOrder(o);

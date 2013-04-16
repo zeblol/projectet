@@ -35,6 +35,7 @@ public class PDFGenerator {
     private Order order;
     private Employee emp;
 
+    // Frederik
     public PDFGenerator(Customer c, Order o, Employee e, double depositum, double total) {
         customer = c;
         order = o;

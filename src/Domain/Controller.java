@@ -52,10 +52,33 @@ public class Controller {
         return o;
     }
 
-    public double calcDeposit(double totalPris){
+    // Frederik
+    public String getCity(int zip) {
+        String s = null;
+        dbFacade.startNewBusinessTransaction();
+        if (zip != 0) {
+            s = dbFacade.getCity(zip);
+        }
+        return s;
+    }
+
+    // Sebastian
+    public Customer getCustomer(int cID) {
+        if (processingCustomer) {
+            return null;
+        }
+        Customer c = null;
+        dbFacade.startNewBusinessTransaction();
+        if (cID != 0) {
+            c = dbFacade.getCustomer(cID);
+        }
+        return c;
+    }
+
+    public double calcDeposit(double totalPris) {
         return calcDiscount(66, totalPris);
     }
-    
+
     // Frederik
     public ArrayList<Employee> getMontoerer() {
         dbFacade.startNewBusinessTransaction();
@@ -196,7 +219,8 @@ public class Controller {
         }
         return status;
     }
- //Sebastian & Frederik
+    //Sebastian & Frederik
+
     public double calcTotal(Order o) {
         ArrayList<OrderDetail> list = o.getOrderDetails();
         ArrayList<Product> plist = getProducts();
@@ -216,8 +240,9 @@ public class Controller {
         }
         return totalpris;
     }
-    public double calcDiscount(int discount, double totalpris){
-        double totalpriscalced = totalpris - ((discount / 100d)* totalpris);
+
+    public double calcDiscount(int discount, double totalpris) {
+        double totalpriscalced = totalpris - ((discount / 100d) * totalpris);
         return totalpriscalced;
     }
 }

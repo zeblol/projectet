@@ -34,6 +34,27 @@ public class CustomerMapper {
         System.out.println("insertCustomers: " + (rowsinserted == cl.size()));
         return (rowsinserted == cl.size());
     }
+    //sebastian
+
+    public Customer getCustomer(Connection conn, int cID) {
+        Customer c = null;
+        String SQLString = "select * "
+                + "from customers "
+                + "where cid = ?";
+        PreparedStatement statement = null;
+        try {
+            statement = conn.prepareStatement(SQLString);
+            statement.setInt(1, cID);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                c = new Customer(cID, rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getInt(6));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Fail in CustomerMapper - getCustomer");
+            System.out.println(ex.getMessage());
+        }
+        return c;
+    }
 
     //sebastian
     public int getNextCustomerID(Connection conn) {
