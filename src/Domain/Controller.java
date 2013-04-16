@@ -192,4 +192,9 @@ public class Controller {
         }
         return status;
     }
+    public int calcTotal(int total){
+       
+        
+        return total;
+    }
 }

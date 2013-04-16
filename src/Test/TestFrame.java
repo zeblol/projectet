@@ -476,6 +476,7 @@ public class TestFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfFromDateActionPerformed
 
+    // Frederik
     private void buttonAddToOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddToOrderActionPerformed
         // TODO add your handling code here:
         int newAmount = selectedProduct.getAntalTotal() - Integer.parseInt(tfAmount.getText());
@@ -493,6 +494,7 @@ public class TestFrame extends javax.swing.JFrame {
         listSelected.setModel(m);
     }//GEN-LAST:event_buttonAddToOrderActionPerformed
 
+    // Frederik
     private void buttonOpretOrdreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOpretOrdreActionPerformed
         // TODO add your handling code here:
         System.out.println("RET LINJEN NEDENUNDER - TestFrame - buttonOpretOrdreActionPerformed - CUSTOMER ID ER HARDCODED IND.");
@@ -511,6 +513,7 @@ public class TestFrame extends javax.swing.JFrame {
         listSelected.setModel(new DefaultListModel());
     }//GEN-LAST:event_buttonOpretOrdreActionPerformed
 
+    //Frederik
     private void tfFromDateKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfFromDateKeyReleased
         // TODO add your handling code here:
         String match = "\\d\\d-\\w\\w\\w-\\dd\\dd\\dd\\dd";
@@ -544,6 +547,7 @@ public class TestFrame extends javax.swing.JFrame {
 //        }
     }//GEN-LAST:event_tfFromDateKeyReleased
 
+    // Frederik
     private void buttonOpretKundeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOpretKundeActionPerformed
         // TODO add your handling code here:
         String name = tfName.getText();
@@ -565,6 +569,7 @@ public class TestFrame extends javax.swing.JFrame {
         System.out.println(o.installersToString());
     }//GEN-LAST:event_buttonSøgOrdreActionPerformed
 
+    //Frederik
     private void tfFromInstallerKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfFromInstallerKeyReleased
         // TODO add your handling code here:
         String match = "\\d\\d-\\w\\w\\w-\\dd\\dd\\dd\\dd";
@@ -595,6 +600,7 @@ public class TestFrame extends javax.swing.JFrame {
 //        }
     }//GEN-LAST:event_tfFromInstallerKeyReleased
 
+    // Frederik
     private void buttonAddToOrderInstallerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddToOrderInstallerActionPerformed
         System.out.println("RET LINJEN NEDENUNDER - TestFrame - buttonAddToOrderActionPerformed -- DER SKAL IKKE STÅ \"-1\"");
         String from = tfFromInstaller.getText() + " " + tfTimeFrom.getText();
