@@ -28,7 +28,6 @@ public class Controller {
         processingProduct = false;
         currentProduct = null;
         currentCustomer = null;
-
     }
 
     public void addDirtyOrder(Order o) {
@@ -53,10 +52,14 @@ public class Controller {
         return o;
     }
 
+    public double calcDeposit(double totalPris){
+        return calcDiscount(66, totalPris);
+    }
+    
     // Frederik
-    public ArrayList<Employee> getMontører() {
+    public ArrayList<Employee> getMontoerer() {
         dbFacade.startNewBusinessTransaction();
-        return dbFacade.getMontører();
+        return dbFacade.getMontoerer();
     }
 
     // Frederik
@@ -93,7 +96,8 @@ public class Controller {
 
         if (oID != 0) {
             processingOrder = true;
-            currentOrder = new Order(oID, cID, fromDate, toDate);
+            String created = new Date(System.currentTimeMillis()).toString();
+            currentOrder = new Order(oID, cID, fromDate, toDate, created, false);
             dbFacade.registerNewOrder(currentOrder);
         } else {
             processingOrder = false;
@@ -192,7 +196,7 @@ public class Controller {
         }
         return status;
     }
-
+ //Sebastian & Frederik
     public double calcTotal(Order o) {
         ArrayList<OrderDetail> list = o.getOrderDetails();
         ArrayList<Product> plist = getProducts();
@@ -211,5 +215,9 @@ public class Controller {
             b = false;
         }
         return totalpris;
+    }
+    public double calcDiscount(int discount, double totalpris){
+        double totalpriscalced = totalpris - ((discount / 100d)* totalpris);
+        return totalpriscalced;
     }
 }

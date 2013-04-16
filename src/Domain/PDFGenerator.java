@@ -26,24 +26,24 @@ public class PDFGenerator {
     private Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,
             Font.BOLD);
     
-    String cNavn;
-    int cID;
-    String cEmail;
-    int cPhoneNumber;
-    String cAddress;
-    int cZip;
-    int oID;
-    Date from;
-    Date to;
-    double totalPris;
-    double depositum;
-    Date forfaldDato;
-    int banknummer;
-    String userName;
+    private double depositum;
+    private Date forfaldDato;
+    private Date idag;
+    private double total;
+    private int kontonr = 12345678;
+    private Customer customer;
+    private Order order;
+    private Employee emp;
+
+    public PDFGenerator(Customer c, Order o, Employee e, double depositum, double total) {
+        customer = c;
+        order = o;
+        emp = e;
+        this.depositum = depositum;
+        idag = new Date(System.currentTimeMillis());
+        this.total = total;
+    }
     
-    Controller c = new Controller();
-    Customer customer = new Customer(cID, cNavn, cEmail, cPhoneNumber, cAddress, cZip);
-    // Order order = new Order(oID, cID, order.getFromDate(from), order.getToDate(to));
 
     public void create() {
         try {
@@ -75,37 +75,39 @@ public class PDFGenerator {
         // Tomme linjer
         addEmptyLine(preface, 1);
         // Overskrift
-        preface.add(new Paragraph("Tak for deres ordre hos Hellebæk Festudlejning", catFont));
+        preface.add(new Paragraph("Tak for Deres ordre hos Hellebæk Festudlejning", catFont));
+        // hilsen og datoer for kunden og dennes ordre:
+        addEmptyLine(preface, 2);
+        preface.add(new Paragraph("Kære " + customer.getcName() + ".", subFont));
+        preface.add(new Paragraph("Vi har reserveret følgende produkter til Dem, mellem den "
+                + order.getFromDate() + " - " + order.getToDate() + ".", subFont));
+        // ordredetaljerne:
+        preface.add(new Paragraph("" + order.getOrderDetails().toString()));
 
         addEmptyLine(preface, 2);
-        preface.add(new Paragraph("Kære " + cNavn + ".", subFont)); // generer navnet via cID fra Order.
-        preface.add(new Paragraph("Vi har reserveret følgende produkter til Dem, mellem den "
-                + datoFra + " - " + datoTil + ".", subFont)); // generer datoer fra Order.
-        // indsæt her koden til at udskrive ordredetaljer
-
+        
+        // adresse:
+        preface.add(new Paragraph("Ordren er sat til at blive leveret til følgende adresse: " + "\n"
+                + customer.getcAddress().toString() + ".", subFont));
+        
         addEmptyLine(preface, 3);
-
-        preface.add(new Paragraph("Ordren er sat til at blive leveret til følgende adresse: "
-                + adresse + ".", subFont)); // generer adresse via cID fra Order.
-        // indsæt her koden til at udskrive kundens adresse
-
-        addEmptyLine(preface, 3);
-
-        preface.add(new Paragraph("Den samlede pris for Deres ordre, med ordrenummer: " + oID
-                + ", er: " + totalPris, subFont)); // få oID fra Order, og totalPrisen regnes ud i controlleren
+        // Informationer til indbetaling:
+        preface.add(new Paragraph("Den samlede pris for Deres ordre, med ordrenummer: " + order.getOID()
+                + ", er: " + total, subFont));
         preface.add(new Paragraph("Depositum for Deres bestilling er: " + depositum + ".", subFont)); // 1/3 af totalPrisen
 
         addEmptyLine(preface, 1);
         preface.add(new Paragraph("Depositummet bedes indbetalt senest " + forfaldDato
                 + ", ellers vil yderligere gebyr blive pålagt.", redFont)); // forfaldDato regnes ud fra fraDato
-
+        // Overførselsinformationer:
         addEmptyLine(preface, 1);
-        preface.add(new Paragraph("Indbetaling kan ske via bankoverførsel: " + banknummer + ".", smallBold)); // banknummer genereres ud fra kundenummer og ordrenummer, samt genkendelsesnummer.
+        preface.add(new Paragraph("Indbetaling kan ske via bankoverførsel: " + "+71<00000"
+                + order.getOID() + order.getCID() + "+" + kontonr + "<", smallBold));
 
         addEmptyLine(preface, 3);
-
+        // Afslutning
         preface.add(new Paragraph("Hellebæk Festudlejning ønsker Dem en rigtig god fest!", subFont));
-        preface.add(new Paragraph("Venlig hilsen: " + userName + ", " + new Date(), subFont)); // userName skal genereres via DB
+        preface.add(new Paragraph("Venlig hilsen: " + emp.geteNavn() + ", " + idag, subFont));
 
         document.add(preface);
     }

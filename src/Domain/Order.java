@@ -15,21 +15,27 @@ public class Order {
     private int cID;
     private Date fromDate;
     private Date toDate;
+    private Date created;
+    private boolean depositPaid;
     private ArrayList<OrderDetail> orderdetails;
     private ArrayList<Installer> installers;
 
-    public Order(int o, int c, String from, String to) {
+    public Order(int o, int c, String from, String to, String created, boolean depositPaid) {
         oID = o;
         cID = c;
+        this.depositPaid = depositPaid;
+        this.created = toDate(created);
         fromDate = toDate(from);
         toDate = toDate(to);
         orderdetails = new ArrayList();
         installers = new ArrayList();
     }
     
-    public Order(int o, int c, Date datoFra, Date datoTil){
+    public Order(int o, int c, Date datoFra, Date datoTil, Date created, boolean depositPaid){
         oID = o;
         cID = c;
+        this.created = created;
+        this.depositPaid = depositPaid;
         fromDate = datoFra;
         toDate = datoTil;
         orderdetails = new ArrayList();
@@ -49,6 +55,23 @@ public class Order {
         
         return new Date(c.getTimeInMillis());
     }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public boolean isDepositPaid() {
+        return depositPaid;
+    }
+
+    public void setDepositPaid(boolean depositPaid) {
+        this.depositPaid = depositPaid;
+    }
+    
     
     public ArrayList<OrderDetail> getOrderDetails(){
         return orderdetails;

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class EmployeeMapper {
     
     // Frederik
-    public ArrayList<Employee> getMontører(Connection conn){
+    public ArrayList<Employee> getMontoerer(Connection conn){
         ArrayList<Employee> el = new ArrayList();
         String SQLString = "select * "
                 + "from employees "

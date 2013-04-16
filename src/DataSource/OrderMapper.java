@@ -74,7 +74,11 @@ public class OrderMapper {
             PreparedStatement statement2 = conn.prepareStatement(SQLString2);
             ResultSet rs3;
             while (rs.next()) {
-                currentO = new Order(rs.getInt(1), rs.getInt(2), rs.getDate(3), rs.getDate(4));
+                boolean depositPaid = false;
+                if("Y".equals(rs.getString(6))){
+                    depositPaid = true;
+                }
+                currentO = new Order(rs.getInt(1), rs.getInt(2), rs.getDate(3), rs.getDate(4), rs.getDate(5), depositPaid);
                 statement.setInt(1, currentO.getOID());
                 rs2 = statement.executeQuery();
                 while (rs2.next()) {
@@ -114,7 +118,11 @@ public class OrderMapper {
             statement.setInt(1, oID);
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
-                o = new Order(rs.getInt(1), rs.getInt(2), rs.getDate(3), rs.getDate(4));
+                boolean depositPaid = false;
+                if("Y".equals(rs.getString(6))){
+                    depositPaid = true;
+                }
+                o = new Order(rs.getInt(1), rs.getInt(2), rs.getDate(3), rs.getDate(4), rs.getDate(5), depositPaid);
                 SQLString = "select * "
                         + "from orderdetails "
                         + "where oid = ?";
@@ -180,16 +188,21 @@ public class OrderMapper {
     // Frederik
     public boolean insertOrders(ArrayList<Order> ol, Connection conn) throws SQLException {
         int rowsInserted = 0;
-        String SQLString = "insert into orders values (?,?,?,?)";
+        String SQLString = "insert into orders values (?, ?, ?, ?, ?, ?)";
         PreparedStatement statement = null;
         statement = conn.prepareStatement(SQLString);
-
         for (int i = 0; i < ol.size(); i++) {
             Order o = ol.get(i);
             statement.setInt(1, o.getOID());
             statement.setInt(2, o.getCID());
             statement.setDate(3, o.getFromDate());
             statement.setDate(4, o.getToDate());
+            statement.setDate(5, o.getCreated());
+            String depositPaid = "N";
+            if(o.isDepositPaid()){
+                depositPaid = "Y";
+            }
+            statement.setString(6, depositPaid);
             rowsInserted += statement.executeUpdate();
         }
         System.out.println("insertOrders: " + (rowsInserted == ol.size()));

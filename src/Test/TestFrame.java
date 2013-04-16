@@ -32,7 +32,7 @@ public class TestFrame extends javax.swing.JFrame {
     private Product selectedProduct;
     private HashMap<Integer, Integer> mapProducts;
     private Employee selectedInstaller;
-    private ArrayList<Employee> montører;
+    private ArrayList<Employee> montoerer;
     private ArrayList<Installer> addedInstallers;
     
     public TestFrame() {
@@ -42,7 +42,7 @@ public class TestFrame extends javax.swing.JFrame {
         control = new Controller();
         newOrderDetails = new ArrayList();
         products = control.getProducts();
-        montører = new ArrayList();
+        montoerer = new ArrayList();
         addedInstallers = new ArrayList();
         model = new DefaultListModel();
 //        for (int i = 0; i < products.size(); i++) {
@@ -87,7 +87,7 @@ public class TestFrame extends javax.swing.JFrame {
     }
 
     private void listSelectionInstallers(int index){
-        selectedInstaller = montører.get(index);
+        selectedInstaller = montoerer.get(index);
     }
     
     private void listSelection(int index) {
@@ -137,7 +137,7 @@ public class TestFrame extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         tfOrdrenr = new javax.swing.JTextField();
-        buttonSøgOrdre = new javax.swing.JButton();
+        buttonSoegOrdre = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
         jScrollPane3 = new javax.swing.JScrollPane();
         listInstallers = new javax.swing.JList();
@@ -224,10 +224,10 @@ public class TestFrame extends javax.swing.JFrame {
 
         jLabel9.setText("Ordrenr.");
 
-        buttonSøgOrdre.setText("Søg");
-        buttonSøgOrdre.addActionListener(new java.awt.event.ActionListener() {
+        buttonSoegOrdre.setText("Søg");
+        buttonSoegOrdre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonSøgOrdreActionPerformed(evt);
+                buttonSoegOrdreActionPerformed(evt);
             }
         });
 
@@ -340,7 +340,7 @@ public class TestFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfOrdrenr, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(48, 48, 48)
-                        .addComponent(buttonSøgOrdre, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(buttonSoegOrdre, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel8)
                         .addGap(54, 54, 54))
@@ -443,7 +443,7 @@ public class TestFrame extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
                             .addComponent(tfOrdrenr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonSøgOrdre))))
+                            .addComponent(buttonSoegOrdre))))
                 .addGap(38, 38, 38)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -561,14 +561,14 @@ public class TestFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_buttonOpretKundeActionPerformed
 
-    private void buttonSøgOrdreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSøgOrdreActionPerformed
+    private void buttonSoegOrdreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSoegOrdreActionPerformed
         // TODO add your handling code here:
         Order o = control.getOrder(Integer.parseInt(tfOrdrenr.getText()));
         System.out.println(o.getOID());
         System.out.println(o.detailsToString());
         System.out.println(o.installersToString());
         System.out.println(control.calcTotal(o));
-    }//GEN-LAST:event_buttonSøgOrdreActionPerformed
+    }//GEN-LAST:event_buttonSoegOrdreActionPerformed
 
     //Frederik
     private void tfFromInstallerKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfFromInstallerKeyReleased
@@ -576,7 +576,7 @@ public class TestFrame extends javax.swing.JFrame {
         String match = "\\d\\d-\\w\\w\\w-\\dd\\dd\\dd\\dd";
 //        if(tfFromDate.getText().matches(match) && tfToDate.getText().matches(match)){
             System.out.println("DOING STUFF22222222");
-            montører = control.getMontører();
+            montoerer = control.getMontoerer();
             System.out.println("RET LINJEN NEDENUNDER - TestFrame - tfFromInstallerKeyReleased -- DATOEN ER HARDCODED IND.");
             tfFromInstaller.setText("01-jan-2013");
             tfToInstaller.setText("01-jan-2013");
@@ -586,14 +586,14 @@ public class TestFrame extends javax.swing.JFrame {
                     tfToInstaller.getText() + " " + tfTimeTo.getText());
             DefaultListModel mod = new DefaultListModel();
             boolean b = false;
-            for (int i = 0; i < montører.size(); i++) {
+            for (int i = 0; i < montoerer.size(); i++) {
                 for (int j = 0; j < il.size(); j++) {
-                    if(montører.get(i).geteID() == il.get(j).geteID()){
+                    if(montoerer.get(i).geteID() == il.get(j).geteID()){
                         b = true;
                     }
                 }
                 if(!b){
-                    mod.addElement(montører.get(i));
+                    mod.addElement(montoerer.get(i));
                 }
                 b = false;
             }
@@ -655,7 +655,7 @@ public class TestFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonOpretKunde;
     private javax.swing.JButton buttonOpretOrdre;
     private javax.swing.JButton buttonRemoveFromOrder;
-    private javax.swing.JButton buttonSøgOrdre;
+    private javax.swing.JButton buttonSoegOrdre;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

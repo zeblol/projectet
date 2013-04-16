@@ -125,7 +125,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="tfOrdrenr" min="-2" pref="115" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-                      <Component id="buttonSøgOrdre" min="-2" pref="62" max="-2" attributes="0"/>
+                      <Component id="buttonSoegOrdre" min="-2" pref="62" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
@@ -256,7 +256,7 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="tfOrdrenr" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="buttonSøgOrdre" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonSoegOrdre" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -451,12 +451,12 @@
     </Component>
     <Component class="javax.swing.JTextField" name="tfOrdrenr">
     </Component>
-    <Component class="javax.swing.JButton" name="buttonS&#xf8;gOrdre">
+    <Component class="javax.swing.JButton" name="buttonSoegOrdre">
       <Properties>
         <Property name="text" type="java.lang.String" value="S&#xf8;g"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonS&#xf8;gOrdreActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSoegOrdreActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator3">

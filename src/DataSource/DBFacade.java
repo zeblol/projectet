@@ -67,12 +67,12 @@ public class DBFacade {
         uow = new UnitOfWork();
     }
     
-    public ArrayList<Employee> getMontører(){
+    public ArrayList<Employee> getMontoerer(){
         Connection conn = null;
         ArrayList<Employee> el = null;
         try {
             conn = getConnection();
-            el = new EmployeeMapper().getMontører(conn);
+            el = new EmployeeMapper().getMontoerer(conn);
         } finally {
             releaseConnection(conn);
         }
