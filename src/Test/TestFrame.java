@@ -562,6 +562,7 @@ public class TestFrame extends javax.swing.JFrame {
         Order o = control.getOrder(Integer.parseInt(tfOrdrenr.getText()));
         System.out.println(o.getOID());
         System.out.println(o.detailsToString());
+        System.out.println(o.installersToString());
     }//GEN-LAST:event_buttonSøgOrdreActionPerformed
 
     private void tfFromInstallerKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfFromInstallerKeyReleased

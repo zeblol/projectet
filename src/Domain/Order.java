@@ -53,6 +53,10 @@ public class Order {
     public ArrayList<OrderDetail> getOrderDetails(){
         return orderdetails;
     }
+    
+    public ArrayList<Installer> getInstallers(){
+        return installers;
+    }
 
     public int getOID() {
         return oID;
@@ -105,6 +109,14 @@ public class Order {
         String res = "";
         for (int i = 0; i < orderdetails.size(); i++) {
             res += orderdetails.get(i).toString() + "\n";
+        }
+        return res;
+    }
+    
+    public String installersToString(){
+        String res = "";
+        for (int i = 0; i < installers.size(); i++) {
+            res += "e" + installers.get(i).toString() + "\n";
         }
         return res;
     }

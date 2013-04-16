@@ -124,6 +124,15 @@ public class OrderMapper {
                 while (rs.next()) {
                     o.addDetail(new OrderDetail(rs.getInt(1), rs.getInt(2), rs.getInt(3)));
                 }
+                SQLString = "select * "
+                        + "from installers "
+                        + "where oid = ?";
+                statement = conn.prepareStatement(SQLString);
+                statement.setInt(1, oID);
+                rs = statement.executeQuery();
+                while(rs.next()){
+                    o.addInstaller(new Installer(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4)));
+                }
             }
         } catch (SQLException ex) {
             System.out.println("Fail in OrderMapper - getOrder");
