@@ -168,7 +168,7 @@ public class OrderMapper {
         return nextOID;
     }
 
-    // Sebastian
+    // Sebastian, Charlotte
     public boolean insertInstallers(ArrayList<Installer> il, Connection conn) throws SQLException {
         int rowsInserted = 0;
         String SQLString = "insert into installers values (?,?,to_date(?,'dd-mon-yyyy hh24:mi'),to_date(?,'dd-mon-yyyy hh24:mi'))";

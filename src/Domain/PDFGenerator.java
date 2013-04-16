@@ -45,7 +45,7 @@ public class PDFGenerator {
         this.total = total;
     }
     
-
+    //Charlotte
     public void create() {
         try {
             Document document = new Document();
