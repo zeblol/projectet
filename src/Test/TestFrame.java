@@ -567,6 +567,7 @@ public class TestFrame extends javax.swing.JFrame {
         System.out.println(o.getOID());
         System.out.println(o.detailsToString());
         System.out.println(o.installersToString());
+        System.out.println(control.calcTotal(o));
     }//GEN-LAST:event_buttonSøgOrdreActionPerformed
 
     //Frederik

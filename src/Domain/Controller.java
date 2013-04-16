@@ -134,7 +134,7 @@ public class Controller {
         return status;
     }
 
-    public Date toDate(String s){
+    public Date toDate(String s) {
         System.out.println("INPUT STRING: " + s);
         String[] array = s.split("-|:|\\s+");
         System.out.println("ARRAY CONTENT:");
@@ -150,10 +150,10 @@ public class Controller {
                 .replace("dec", "11");
         int month = Integer.parseInt(sMonth);
         c.set(Integer.parseInt(array[2]), month, Integer.parseInt(array[0]),
-                Integer.parseInt(array[3]), Integer.parseInt(array[4]) ,0);
+                Integer.parseInt(array[3]), Integer.parseInt(array[4]), 0);
         return new Date(c.getTimeInMillis());
     }
-    
+
     //Frederik
     public boolean addInstaller(int eID, String fromDate, String toDate) {
         boolean status = false;
@@ -192,9 +192,24 @@ public class Controller {
         }
         return status;
     }
-    public int calcTotal(int total){
-       
-        
-        return total;
+
+    public double calcTotal(Order o) {
+        ArrayList<OrderDetail> list = o.getOrderDetails();
+        ArrayList<Product> plist = getProducts();
+        boolean b = false;
+        double pris = 0;
+        double totalpris = 0;
+        for (int i = 0; i < list.size(); i++) {
+            int j = 0;
+            while (!b && j < plist.size()) {
+                if (list.get(i).getpID() == plist.get(j).getpID()) {
+                    b = true;
+                    totalpris = totalpris + (plist.get(j).getPris() * list.get(i).getQuantity());
+                }
+                j++;
+            }
+            b = false;
+        }
+        return totalpris;
     }
 }
