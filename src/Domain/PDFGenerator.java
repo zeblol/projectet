@@ -9,6 +9,7 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.io.File;
 
 /**
  *
@@ -51,9 +52,11 @@ public class PDFGenerator {
             Document document = new Document();
             PdfWriter.getInstance(document, new FileOutputStream(FILE));
             document.open();
+            
             addMetaData(document);
             addTitlePage(document);
-            document.close();
+            
+            document.close(); 
         } catch (Exception e) {
             e.printStackTrace();
         }

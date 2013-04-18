@@ -1,8 +1,8 @@
 package DataSource;
 
 import Domain.*;
-import java.util.ArrayList;
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  *
@@ -15,28 +15,45 @@ public class UnitOfWork {
     private ArrayList<Order> dirtyOrders;
     private ArrayList<OrderDetail> newOrderDetails;
     private ArrayList<OrderDetail> dirtyOrderDetails;
+    private ArrayList<OrderDetail> removedOrderDetails;
     private ArrayList<Customer> newCustomers;
     private ArrayList<Customer> dirtyCustomers;
     private ArrayList<Installer> newInstallers;
-    
+    private ArrayList<Installer> removedInstallers;
+
     public UnitOfWork() {
         dirtyProducts = new ArrayList();
         newOrders = new ArrayList();
         dirtyOrders = new ArrayList();
         newOrderDetails = new ArrayList();
         dirtyOrderDetails = new ArrayList();
+        removedOrderDetails = new ArrayList();
         newCustomers = new ArrayList();
         dirtyCustomers = new ArrayList();
         newInstallers = new ArrayList();
-        
+        removedInstallers = new ArrayList();
     }
-    
-    public void addDirtyOrder(Order o){
-        if(!newOrders.contains(o) && !dirtyOrders.contains(o)){
+
+    public void addDirtyOrder(Order o) {
+        if (!newOrders.contains(o) && !dirtyOrders.contains(o)) {
             dirtyOrders.add(o);
         }
     }
-    
+
+    // Kirstine
+    public void addDirtyOrderDetail(OrderDetail od) {
+        if (!newOrderDetails.contains(od) && !dirtyOrderDetails.contains(od)) {
+            dirtyOrderDetails.add(od);
+        }
+    }
+
+    // Charlotte
+    public void addRemovedOrderDetail(OrderDetail od) {
+        if (!newOrderDetails.contains(od) && !dirtyOrderDetails.contains(od)) {
+            removedOrderDetails.add(od);
+        }
+    }
+
     // Frederik
     public ArrayList<Product> getProducts(Connection conn) {
         ArrayList<Product> al = null;
@@ -48,15 +65,17 @@ public class UnitOfWork {
         }
         return al;
     }
+
     //sebastian
-    public void registerNewCustomer(Customer c){
+    public void registerNewCustomer(Customer c) {
         if (!newCustomers.contains(c) && !dirtyCustomers.contains(c)) {
             newCustomers.add(c);
         }
     }
+
     //sebastian
-    public void registerDirtyCustomer(Customer c){
-        if(!dirtyCustomers.contains(c)) {
+    public void registerDirtyCustomer(Customer c) {
+        if (!dirtyCustomers.contains(c)) {
             dirtyCustomers.add(c);
         }
     }
@@ -85,11 +104,18 @@ public class UnitOfWork {
             dirtyProducts.add(p);
         }
     }
-    
+
     // Frederik
-    public void registerNewInstaller(Installer in){
-        if(!newInstallers.contains(in)){
+    public void registerNewInstaller(Installer in) {
+        if (!newInstallers.contains(in)) {
             newInstallers.add(in);
+        }
+    }
+
+    // Sebastian
+    public void addRemovedInstaller(Installer in) {
+        if (!newInstallers.contains(in) && !removedInstallers.contains(in)) {
+            removedInstallers.add(in);
         }
     }
 
@@ -102,17 +128,16 @@ public class UnitOfWork {
             OrderMapper om = new OrderMapper();
             ProductMapper pm = new ProductMapper();
             CustomerMapper cm = new CustomerMapper(); //sebastian
-            
-            System.out.println("1");
+
             status = status && om.insertOrders(newOrders, conn);
-            System.out.println("2");
             status = status && om.insertOrderDetails(newOrderDetails, conn);
-            System.out.println("3");
             status = status && pm.updateProducts(dirtyProducts, conn);
-            System.out.println("4");
             status = status && cm.insertCustomers(newCustomers, conn); //sebastian
-            System.out.println("5"); //sebastian
             status = status && om.insertInstallers(newInstallers, conn);
+            status = status && om.removeOrderDetails(removedOrderDetails, conn);
+            status = status && om.removeInstallers(removedInstallers, conn);
+            status = status && om.updateOrderDetails(dirtyOrderDetails, conn);
+            status = status && om.updateOrders(dirtyOrders, conn);
             if (!status) {
                 throw new Exception("Business Transaction aborted");
             }

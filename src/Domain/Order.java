@@ -19,10 +19,12 @@ public class Order {
     private boolean depositPaid;
     private ArrayList<OrderDetail> orderdetails;
     private ArrayList<Installer> installers;
+    private int discount;
 
-    public Order(int o, int c, String from, String to, String created, boolean depositPaid) {
+    public Order(int o, int c, String from, String to, String created, boolean depositPaid, int rabat) {
         oID = o;
         cID = c;
+        discount = rabat;
         this.depositPaid = depositPaid;
         this.created = toDate(created);
         fromDate = toDate(from);
@@ -31,9 +33,10 @@ public class Order {
         installers = new ArrayList();
     }
     
-    public Order(int o, int c, Date datoFra, Date datoTil, Date created, boolean depositPaid){
+    public Order(int o, int c, Date datoFra, Date datoTil, Date created, boolean depositPaid, int rabat){
         oID = o;
         cID = c;
+        discount = rabat;
         this.created = created;
         this.depositPaid = depositPaid;
         fromDate = datoFra;
@@ -54,6 +57,28 @@ public class Order {
         c.set(Integer.parseInt(array[2]), month, Integer.parseInt(array[0]),0 ,0 ,0);
         
         return new Date(c.getTimeInMillis());
+    }
+    
+    public int getDiscount(){
+        return discount;
+    }
+    
+    public void setDiscount(int i){
+        discount = i;
+    }
+    
+    public boolean removeInstaller(Installer in){
+        if(installers.contains(in)){
+            return installers.remove(in);
+        }
+        return false;
+    }
+    
+    public boolean removeOrderDetail(OrderDetail od){
+        if(orderdetails.contains(od)){
+            return orderdetails.remove(od);
+        }
+        return false;
     }
 
     public Date getCreated() {

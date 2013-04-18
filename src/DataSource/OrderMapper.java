@@ -19,6 +19,107 @@ import java.util.GregorianCalendar;
  */
 public class OrderMapper {
 
+    // Kirstine
+    public boolean updateOrders(ArrayList<Order> ol, Connection conn) {
+        int rowsUpdated = 0;
+        String SQLString = "update orders "
+                + "set datofra = ?, datotil = ?, depositpaid = ?, discount = ? "
+                + "where oid = ?";
+        PreparedStatement statement = null;
+        try {
+            statement = conn.prepareStatement(SQLString);
+            for (int i = 0; i < ol.size(); i++) {
+                Order o = ol.get(i);
+                statement.setDate(1, o.getFromDate());
+                statement.setDate(2, o.getToDate());
+                String s = "N";
+                if (o.isDepositPaid()) {
+                    s = "Y";
+                }
+                statement.setString(3, s);
+                statement.setInt(4, o.getDiscount());
+                statement.setInt(5, o.getOID());
+                int tupleUpdated = statement.executeUpdate();
+                rowsUpdated += tupleUpdated;
+            }
+        } catch (SQLException e) {
+            System.out.println("Fail in Order - updateOrders");
+            System.out.println(e.getMessage());
+        }
+        return (rowsUpdated == ol.size());
+    }
+
+    // Frederik
+    public boolean updateOrderDetails(ArrayList<OrderDetail> odl, Connection conn) {
+        int rowsUpdated = 0;
+        String SQLString = "update orderdetails "
+                + "set antal = ? "
+                + "where oid = ? and pid = ?";
+        PreparedStatement statement = null;
+        try {
+            statement = conn.prepareStatement(SQLString);
+            for (int i = 0; i < odl.size(); i++) {
+                OrderDetail od = odl.get(i);
+                System.out.println("ORDER DETAIL: " + od.getQuantity());
+                statement.setInt(1, od.getQuantity());
+                statement.setInt(2, od.getoID());
+                statement.setInt(3, od.getpID());
+                int tupleUpdated = statement.executeUpdate();
+                rowsUpdated += tupleUpdated;
+            }
+        } catch (SQLException e) {
+            System.out.println("Fail in OrderMapper - updateOrderDetails");
+            System.out.println(e.getMessage());
+        }
+        return (rowsUpdated == odl.size());
+    }
+
+    // Frederik
+    public boolean removeInstallers(ArrayList<Installer> il, Connection conn) {
+        int rowsRemoved = 0;
+        String SQLString = "delete from installers "
+                + "where oid = ? and eid = ?";
+        PreparedStatement statement = null;
+        try {
+            statement = conn.prepareStatement(SQLString);
+            for (int i = 0; i < il.size(); i++) {
+                Installer in = il.get(i);
+                statement.setInt(1, in.getoID());
+                statement.setInt(2, in.geteID());
+                int tupleRemoved = statement.executeUpdate();
+                rowsRemoved += tupleRemoved;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Fail in OrderMapper - RemoveInstallers");
+            System.out.println(ex.getMessage());
+        }
+        System.out.println("removeInstallers: " + (rowsRemoved == il.size()));
+        return (rowsRemoved == il.size());
+    }
+
+    // Frederik
+    public boolean removeOrderDetails(ArrayList<OrderDetail> il, Connection conn) {
+        int rowsRemoved = 0;
+        String SQLString = "delete from orderdetails "
+                + "where oid = ? and pid = ?";
+        PreparedStatement statement = null;
+        try {
+            statement = conn.prepareStatement(SQLString);
+            for (int i = 0; i < il.size(); i++) {
+                OrderDetail od = il.get(i);
+                statement.setInt(1, od.getoID());
+                statement.setInt(2, od.getpID());
+                int tupleRemoved = statement.executeUpdate();
+                rowsRemoved += tupleRemoved;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Fail in OrderMapper - removeOrderDetails");
+            System.out.println(ex.getMessage());
+        }
+        System.out.println("removeOrderDetails: " + (rowsRemoved == il.size()));
+        return (rowsRemoved == il.size());
+    }
+
     // Frederik
     public ArrayList<Installer> getInstallers(Connection conn, String datoFra, String datoTil) {
         ArrayList il = new ArrayList();
@@ -75,10 +176,10 @@ public class OrderMapper {
             ResultSet rs3;
             while (rs.next()) {
                 boolean depositPaid = false;
-                if("Y".equals(rs.getString(6))){
+                if ("Y".equals(rs.getString(6))) {
                     depositPaid = true;
                 }
-                currentO = new Order(rs.getInt(1), rs.getInt(2), rs.getDate(3), rs.getDate(4), rs.getDate(5), depositPaid);
+                currentO = new Order(rs.getInt(1), rs.getInt(2), rs.getDate(3), rs.getDate(4), rs.getDate(5), depositPaid, rs.getInt(7));
                 statement.setInt(1, currentO.getOID());
                 rs2 = statement.executeQuery();
                 while (rs2.next()) {
@@ -119,10 +220,10 @@ public class OrderMapper {
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
                 boolean depositPaid = false;
-                if("Y".equals(rs.getString(6))){
+                if ("Y".equals(rs.getString(6))) {
                     depositPaid = true;
                 }
-                o = new Order(rs.getInt(1), rs.getInt(2), rs.getDate(3), rs.getDate(4), rs.getDate(5), depositPaid);
+                o = new Order(rs.getInt(1), rs.getInt(2), rs.getDate(3), rs.getDate(4), rs.getDate(5), depositPaid, rs.getInt(7));
                 SQLString = "select * "
                         + "from orderdetails "
                         + "where oid = ?";
@@ -138,7 +239,7 @@ public class OrderMapper {
                 statement = conn.prepareStatement(SQLString);
                 statement.setInt(1, oID);
                 rs = statement.executeQuery();
-                while(rs.next()){
+                while (rs.next()) {
                     o.addInstaller(new Installer(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4)));
                 }
             }
@@ -188,7 +289,7 @@ public class OrderMapper {
     // Frederik
     public boolean insertOrders(ArrayList<Order> ol, Connection conn) throws SQLException {
         int rowsInserted = 0;
-        String SQLString = "insert into orders values (?, ?, ?, ?, ?, ?)";
+        String SQLString = "insert into orders values (?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement statement = null;
         statement = conn.prepareStatement(SQLString);
         for (int i = 0; i < ol.size(); i++) {
@@ -199,10 +300,11 @@ public class OrderMapper {
             statement.setDate(4, o.getToDate());
             statement.setDate(5, o.getCreated());
             String depositPaid = "N";
-            if(o.isDepositPaid()){
+            if (o.isDepositPaid()) {
                 depositPaid = "Y";
             }
             statement.setString(6, depositPaid);
+            statement.setInt(7, o.getDiscount());
             rowsInserted += statement.executeUpdate();
         }
         System.out.println("insertOrders: " + (rowsInserted == ol.size()));

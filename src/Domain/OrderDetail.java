@@ -16,6 +16,10 @@ public class OrderDetail {
         this.amount = amount;
     }
 
+    public void setAmount(int i){
+        amount = i;
+    }
+    
     public int getoID() {
         return oID;
     }

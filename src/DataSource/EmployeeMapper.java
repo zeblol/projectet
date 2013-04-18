@@ -1,7 +1,7 @@
-
 package DataSource;
 
 import Domain.Employee;
+import Domain.OrderDetail;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,9 +13,9 @@ import java.util.ArrayList;
  * @author Riboe
  */
 public class EmployeeMapper {
-    
+
     // Frederik
-    public ArrayList<Employee> getMontoerer(Connection conn){
+    public ArrayList<Employee> getMontoerer(Connection conn) {
         ArrayList<Employee> el = new ArrayList();
         String SQLString = "select * "
                 + "from employees "
@@ -24,10 +24,10 @@ public class EmployeeMapper {
         try {
             statement = conn.prepareStatement(SQLString);
             ResultSet rs = statement.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 el.add(new Employee(rs.getInt(1), rs.getString(2), rs.getString(3)));
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println("Fail in OrderMapper - getEmployees");
             System.out.println(e.getMessage());
         }

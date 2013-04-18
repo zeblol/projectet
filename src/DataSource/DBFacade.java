@@ -7,7 +7,6 @@ import Domain.Order;
 import Domain.OrderDetail;
 import Domain.Product;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.util.ArrayList;
 
@@ -42,9 +41,9 @@ public class DBFacade {
         }
         return pl;
     }
-    
+
     // Frederik
-    public Order getOrder(int oID){
+    public Order getOrder(int oID) {
         Connection conn = null;
         Order o = null;
         try {
@@ -55,7 +54,7 @@ public class DBFacade {
         }
         return o;
     }
-    
+
     //Sebastian
     public Customer getCustomer(int cID) {
         Connection conn = null;
@@ -68,9 +67,9 @@ public class DBFacade {
         }
         return c;
     }
-    
+
     // Frederik
-    public String getCity(int zip){
+    public String getCity(int zip) {
         Connection conn = null;
         String s = null;
         try {
@@ -81,19 +80,40 @@ public class DBFacade {
         }
         return s;
     }
-    
-    public void addDirtyOrder(Order o){
-        if(uow != null){
+
+    public void addDirtyOrder(Order o) {
+        if (uow != null) {
             uow.addDirtyOrder(o);
         }
     }
-    
+
+    // Kirstine
+    public void registerDirtyOrderDetail(OrderDetail od) {
+        if (uow != null) {
+            uow.addDirtyOrderDetail(od);
+            System.out.println(od);
+        }
+    }
+
+    // Charlotte
+    public void addRemovedOrderDetail(OrderDetail od) {
+        if (uow != null) {
+            uow.addRemovedOrderDetail(od);
+        }
+    }
+
+    // Sebastian
+    public void addRemovedInstaller(Installer in) {
+        if (uow != null) {
+            uow.addRemovedInstaller(in);
+        }
+    }
 
     public void startNewBusinessTransaction() {
         uow = new UnitOfWork();
     }
-    
-    public ArrayList<Employee> getMontoerer(){
+
+    public ArrayList<Employee> getMontoerer() {
         Connection conn = null;
         ArrayList<Employee> el = null;
         try {
@@ -104,8 +124,8 @@ public class DBFacade {
         }
         return el;
     }
-    
-    public ArrayList<Installer> getInstallers(String fromDate, String toDate){
+
+    public ArrayList<Installer> getInstallers(String fromDate, String toDate) {
         Connection conn = null;
         ArrayList<Installer> il = null;
         try {
@@ -116,8 +136,8 @@ public class DBFacade {
         }
         return il;
     }
-    
-    public ArrayList<Order> getOrders(String fromDate, String toDate){
+
+    public ArrayList<Order> getOrders(String fromDate, String toDate) {
         Connection conn = null;
         ArrayList<Order> al = null;
         try {
@@ -128,13 +148,13 @@ public class DBFacade {
         }
         return al;
     }
-    
-    public void addDirtyProduct(Product p){
-        if(uow != null){
+
+    public void addDirtyProduct(Product p) {
+        if (uow != null) {
             uow.addDirtyProduct(p);
         }
     }
-    
+
     // Frederik
     public int getNextOrderID() {
         Connection conn = null;
@@ -147,14 +167,14 @@ public class DBFacade {
         }
         return nextOID;
     }
-    
+
     // Frederik
     public int getNextCustomerID() {
         Connection conn = null;
         int nextCID = 0;
         try {
-        conn = getConnection();
-        nextCID = new CustomerMapper().getNextCustomerID(conn);
+            conn = getConnection();
+            nextCID = new CustomerMapper().getNextCustomerID(conn);
         } finally {
             releaseConnection(conn);
         }
@@ -166,24 +186,25 @@ public class DBFacade {
             uow.registerNewOrder(o);
         }
     }
+
     public void registerNewCustomer(Customer c) {
         if (uow != null) {
             uow.registerNewCustomer(c);
         }
     }
-    
-    public void registerNewInstaller(Installer in){
-        if(uow != null){
+
+    public void registerNewInstaller(Installer in) {
+        if (uow != null) {
             uow.registerNewInstaller(in);
         }
     }
-    
+
     public void registerNewOrderDetail(OrderDetail od) {
         if (uow != null) {
             uow.registerNewOrderDetail(od);
         }
     }
-    
+
     private Connection getConnection() {
         Connection conn = null;
         try {
@@ -204,7 +225,7 @@ public class DBFacade {
             System.err.println(e);
         }
     }
-    
+
     public boolean commitBusinessTransaction() {
         boolean status = false;
         if (uow != null) {
