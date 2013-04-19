@@ -17,7 +17,7 @@ import java.io.File;
  */
 public class PDFGenerator {
 
-    private String FILE = "c:/temp/Fakturering.pdf";
+    private String FILE;
     private Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
             Font.BOLD);
     private Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 12,
@@ -34,16 +34,17 @@ public class PDFGenerator {
     private int kontonr = 12345678;
     private Customer customer;
     private Order order;
-    private Employee emp;
+//    private Employee emp;
 
     // Frederik
-    public PDFGenerator(Customer c, Order o, Employee e, double depositum, double total) {
+    public PDFGenerator(Customer c, Order o, double depositum, double total) {
         customer = c;
         order = o;
-        emp = e;
+//        emp = e;
         this.depositum = depositum;
         idag = new Date(System.currentTimeMillis());
         this.total = total;
+        FILE = "c:/temp/" + System.currentTimeMillis() + "-" + order.getOID() + ".pdf";
     }
     
     //Charlotte
@@ -111,7 +112,7 @@ public class PDFGenerator {
         addEmptyLine(preface, 3);
         // Afslutning
         preface.add(new Paragraph("Hellebæk Festudlejning ønsker Dem en rigtig god fest!", subFont));
-        preface.add(new Paragraph("Venlig hilsen: " + emp.geteNavn() + ", " + idag, subFont));
+//        preface.add(new Paragraph("Venlig hilsen: " + emp.geteNavn() + ", " + idag, subFont));
 
         document.add(preface);
     }

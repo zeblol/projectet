@@ -720,6 +720,7 @@ public class TestFrame extends javax.swing.JFrame {
             control.addInstaller(in.geteID(), in.getFrom().toString(), in.getTo().toString());
         }
         control.saveOrder();
+        control.createPDF(o);
         newOrderDetails.clear();
         addedInstallers.clear();
         listSelected.setModel(new DefaultListModel());

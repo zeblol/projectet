@@ -113,7 +113,9 @@ public class Controller {
         oID = dbFacade.getNextOrderID();
         if (oID != 0) {
             processingOrder = true;
-            String created = new Date(System.currentTimeMillis()).toString();
+            Calendar c = new GregorianCalendar();
+            c.setTimeInMillis(System.currentTimeMillis());
+            String created = c.get(Calendar.DAY_OF_MONTH) + "-" + c.get(Calendar.MONTH) + "-" + c.get(Calendar.YEAR);
             currentOrder = new Order(oID, cID, fromDate, toDate, created, false, rabat, 0);
             dbFacade.registerNewOrder(currentOrder);
         } else {
@@ -304,5 +306,11 @@ public class Controller {
         d = 1 - d;
         double totalPrisCalc = totalpris * d;
         return totalPrisCalc;
+    }
+    public void createPDF(Order o) {
+        Customer c = getCustomer(o.getCID());
+        double dep = calcDeposit(o, 33).doubleValue();
+        double total = calcTotal(o).doubleValue();
+        new PDFGenerator(c, o, dep, total).create();
     }
 }
