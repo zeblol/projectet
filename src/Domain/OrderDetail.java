@@ -8,12 +8,19 @@ public class OrderDetail {
 
     private int oID;
     private int pID;
+    private int ver;
     private int amount;
 
-    public OrderDetail(int oID, int pID, int amount) {
+    public OrderDetail(int oID, int pID, int amount, int ver) {
         this.oID = oID;
         this.pID = pID;
+        this.ver = ver;
         this.amount = amount;
+    }
+
+    public int getVer()
+    {
+        return ver;
     }
 
     public void setAmount(int i){
@@ -42,5 +49,8 @@ public class OrderDetail {
 
     public String toString() {
         return "ID: " + pID + "   " + amount;
+    }
+    public void incrVer(){
+        ver++;
     }
 }

@@ -61,7 +61,7 @@ public class PDFGenerator {
             e.printStackTrace();
         }
     }
-
+    // Kirstine
     // iText allows to add metadata to the PDF which can be viewed in your Adobe
     // Reader
     // under File -> Properties

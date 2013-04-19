@@ -8,16 +8,23 @@ import java.sql.Date;
  */
 public class Installer {
 
-    int oID;
-    int eID;
-    String from;
-    String to;
+    private int oID;
+    private int eID;
+    private int ver;
+    private String from;
+    private String to;
 
-    public Installer(int oID, int eID, String from, String to) {
+    public Installer(int oID, int eID, String from, String to, int ver) {
         this.oID = oID;
         this.eID = eID;
+        this.ver = ver;
         this.from = from;
         this.to = to;
+    }
+
+    public int getVer()
+    {
+        return ver;
     }
 
     public int getoID() {
@@ -50,6 +57,10 @@ public class Installer {
 
     public void setTo(String to) {
         this.to = to;
+    }
+    
+    public void incrVer(){
+        ver++;
     }
 
     public String toString(){

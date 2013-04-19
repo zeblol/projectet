@@ -696,7 +696,7 @@ public class TestFrame extends javax.swing.JFrame {
         selectedProduct.setAntalUdlejet(newRentedAmount);
         control.registerDirtyProduct(selectedProduct);
         System.out.println("RET LINJEN NEDENUNDER - TestFrame - buttonAddToOrderActionPerformed -- DER SKAL IKKE STÅ \"-1\"");
-        OrderDetail newOrderDetail = new OrderDetail(-1, selectedProduct.getpID(), Integer.parseInt(tfAmount.getText()));
+        OrderDetail newOrderDetail = new OrderDetail(-1, selectedProduct.getpID(), Integer.parseInt(tfAmount.getText()), 0);
         newOrderDetails.add(newOrderDetail);
         DefaultListModel m = new DefaultListModel();
         for (int i = 0; i < newOrderDetails.size(); i++) {
@@ -885,7 +885,7 @@ public class TestFrame extends javax.swing.JFrame {
         System.out.println("RET LINJEN NEDENUNDER - TestFrame - buttonAddToOrderActionPerformed -- DER SKAL IKKE STÅ \"-1\"");
         String from = tfFromInstaller.getText() + " " + tfTimeFrom.getText();
         String to = tfToInstaller.getText() + " " + tfTimeTo.getText();
-        Installer newInstaller = new Installer(-1, selectedInstaller.geteID(), from, to);
+        Installer newInstaller = new Installer(-1, selectedInstaller.geteID(), from, to, 0);
         addedInstallers.add(newInstaller);
         DefaultListModel m = new DefaultListModel();
         for (int i = 0; i < addedInstallers.size(); i++) {

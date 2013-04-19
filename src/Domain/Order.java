@@ -13,6 +13,7 @@ public class Order {
 
     private int oID;
     private int cID;
+    private int ver;
     private Date fromDate;
     private Date toDate;
     private Date created;
@@ -21,9 +22,10 @@ public class Order {
     private ArrayList<Installer> installers;
     private int discount;
 
-    public Order(int o, int c, String from, String to, String created, boolean depositPaid, int rabat) {
+    public Order(int o, int c, String from, String to, String created, boolean depositPaid, int rabat, int ver) {
         oID = o;
         cID = c;
+        this.ver = ver;
         discount = rabat;
         this.depositPaid = depositPaid;
         this.created = toDate(created);
@@ -33,9 +35,10 @@ public class Order {
         installers = new ArrayList();
     }
     
-    public Order(int o, int c, Date datoFra, Date datoTil, Date created, boolean depositPaid, int rabat){
+    public Order(int o, int c, Date datoFra, Date datoTil, Date created, boolean depositPaid, int rabat, int ver){
         oID = o;
         cID = c;
+        this.ver = ver;
         discount = rabat;
         this.created = created;
         this.depositPaid = depositPaid;
@@ -171,5 +174,13 @@ public class Order {
     
     public void addInstaller(Installer in) {
         installers.add(in);
+    }
+
+    public int getVer()
+    {
+        return ver;
+    }
+    public void incrVer(){
+        ver++;
     }
 }

@@ -114,7 +114,7 @@ public class Controller {
         if (oID != 0) {
             processingOrder = true;
             String created = new Date(System.currentTimeMillis()).toString();
-            currentOrder = new Order(oID, cID, fromDate, toDate, created, false, rabat);
+            currentOrder = new Order(oID, cID, fromDate, toDate, created, false, rabat, 0);
             dbFacade.registerNewOrder(currentOrder);
         } else {
             processingOrder = false;
@@ -145,7 +145,7 @@ public class Controller {
     public boolean addOrderDetail(int pID, int qty) {
         boolean status = false;
         if (processingOrder) {
-            OrderDetail od = new OrderDetail(currentOrder.getOID(), pID, qty);
+            OrderDetail od = new OrderDetail(currentOrder.getOID(), pID, qty, 0);
             currentOrder.addDetail(od);
             dbFacade.registerNewOrderDetail(od);
             status = true;
@@ -177,7 +177,7 @@ public class Controller {
     public boolean addInstaller(int eID, String fromDate, String toDate) {
         boolean status = false;
         if (processingOrder) {
-            Installer in = new Installer(currentOrder.getOID(), eID, fromDate, toDate);
+            Installer in = new Installer(currentOrder.getOID(), eID, fromDate, toDate ,0);
             currentOrder.addInstaller(in);
             dbFacade.registerNewInstaller(in);
             status = true;
