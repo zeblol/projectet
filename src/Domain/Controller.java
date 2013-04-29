@@ -23,6 +23,8 @@ public class Controller {
     private Customer currentCustomer;
     private OrderDetail currentOrderDetail;
     private Installer currentInstaller;
+    private Vehicle currentVehicle;
+    private User currentUser;
 
     public Controller() {
         processingOrder = false;
@@ -35,8 +37,9 @@ public class Controller {
         currentOrderDetail = null;
         currentInstaller = null;
         processingOrderDetail = false;
+        currentUser = null;
     }
-
+    
     public void registerDirtyOrder(Order o) {
         currentOrder = o;
         processingOrder = true;
@@ -79,6 +82,31 @@ public class Controller {
         return c;
     }
 
+    // Frederik
+    public Customer getCustomerByPhone(int phone) {
+        if (processingCustomer) {
+            return null;
+        }
+        Customer c = null;
+        dbFacade.startNewBusinessTransaction();
+        if (phone != 0) {
+            c = dbFacade.getCustomerByPhone(phone);
+        }
+        return c;
+    }
+
+    // Frederik
+    public Customer getCustomerByEmail(String email) {
+        if (processingCustomer) {
+            return null;
+        }
+        Customer c = null;
+        dbFacade.startNewBusinessTransaction();
+        if (email.contains("@")) {
+            c = dbFacade.getCustomerByEmail(email);
+        }
+        return c;
+    }
 
     // Frederik
     public ArrayList<Employee> getMontoerer() {
@@ -96,7 +124,13 @@ public class Controller {
         dbFacade.startNewBusinessTransaction();
         return dbFacade.getOrders(fromDate, toDate);
     }
-
+    
+    // Frederik
+    public ArrayList<Vehicle> getVehicles(String from, String to){
+        dbFacade.startNewBusinessTransaction();
+        return dbFacade.getVehicles(from, to);
+    }
+    
     // Frederik
     public ArrayList<Product> getProducts() {
         dbFacade.startNewBusinessTransaction();
@@ -123,6 +157,32 @@ public class Controller {
             currentOrder = null;
         }
         return currentOrder;
+    }
+    
+    public int getUserLevel(){
+        if(currentUser == null){
+            return -1;
+        }
+        return currentUser.getBrugerNiveau();
+    }
+    
+    //Frederik
+    public Product createProduct(String navn, float pris, int antal){
+        int pID = 0;
+        if(processingProduct){
+            return null;
+        }
+        dbFacade.startNewBusinessTransaction();
+        pID = dbFacade.getNextProductID();
+        if(pID != 0){
+            processingProduct = true;
+            currentProduct = new Product(pID, navn, pris, antal, 0);
+            dbFacade.registerNewProduct(currentProduct);
+        } else {
+            processingProduct = false;
+            currentProduct = null;
+        }
+        return currentProduct;
     }
 
     //Sebastian
@@ -179,12 +239,30 @@ public class Controller {
     public boolean addInstaller(int eID, String fromDate, String toDate) {
         boolean status = false;
         if (processingOrder) {
-            Installer in = new Installer(currentOrder.getOID(), eID, fromDate, toDate ,0);
+            Installer in = new Installer(currentOrder.getOID(), eID, fromDate, toDate, 0);
             currentOrder.addInstaller(in);
             dbFacade.registerNewInstaller(in);
             status = true;
         }
         return status;
+    }
+    
+    public boolean addVehicle(int vID, String from, String to){
+        boolean status = false;
+        if(processingOrder){
+            Vehicle v = getVehicle(vID);
+            v.setoID(currentOrder.getOID());
+            v.setFromDate(from);
+            v.setToDate(to);
+            currentOrder.addVehicle(v);
+            dbFacade.registerNewVehicle(v);
+            status = true;
+        }
+        return status;
+    }
+    
+    public Vehicle getVehicle(int vID){
+        return dbFacade.getVehicle(vID);
     }
 
     // Frederik
@@ -197,10 +275,33 @@ public class Controller {
         }
         return status;
     }
-
+    
+    //Frederik
+    public boolean saveDirtyProducts(){
+        boolean status = false;
+        if(processingProduct){
+            status = dbFacade.commitBusinessTransaction();
+            processingProduct = false;
+            currentProduct = null;
+        }
+        return status;
+    }
+    
+    //Frederik
+    public boolean saveRemovedProducts(){
+        boolean status = false;
+        if(processingProduct){
+            status = dbFacade.commitBusinessTransaction();
+            processingProduct = false;
+            currentProduct = null;
+        }
+        return status;
+    }
+    
     // Frederik
     public void registerDirtyProduct(Product p) {
         currentProduct = p;
+        processingProduct = true;
         dbFacade.startNewBusinessTransaction();
         dbFacade.addDirtyProduct(p);
     }
@@ -209,7 +310,6 @@ public class Controller {
     public void registerDirtyOrderDetail(OrderDetail od) {
         currentOrderDetail = od;
         processingOrderDetail = true;
-        System.out.println(currentOrderDetail);
         dbFacade.startNewBusinessTransaction();
         dbFacade.registerDirtyOrderDetail(od);
     }
@@ -237,6 +337,22 @@ public class Controller {
         return status;
     }
 
+    // Frederik
+    public void registerRemovedVehicle(Vehicle v) {
+        currentVehicle = v;
+        dbFacade.startNewBusinessTransaction();
+        dbFacade.registerRemovedVehicle(v);
+    }
+    
+    public boolean saveRemovedVehicles() {
+        boolean status = false;
+        if (currentVehicle != null) {
+            status = dbFacade.commitBusinessTransaction();
+            currentVehicle = null;
+        }
+        return status;
+    }
+    
     public boolean saveDeletedOrderDetails() {
         boolean status = false;
         if (currentOrderDetail != null) {
@@ -266,12 +382,23 @@ public class Controller {
         return status;
     }
     
+    // Frederik
+    public boolean saveNewProducts(){
+        boolean status = false;
+        if(processingProduct){
+            status = dbFacade.commitBusinessTransaction();
+            processingProduct = false;
+            currentProduct = null;
+        }
+        return status;
+    }
+
     public BigDecimal calcDeposit(Order o, int deposit) {
         return calcTotal(o, 100 - deposit);
     }
 
     //Sebastian & Frederik
-    public BigDecimal calcTotal(Order o, int discount){
+    public BigDecimal calcTotal(Order o, int discount) {
         ArrayList<OrderDetail> list = o.getOrderDetails();
         ArrayList<Product> plist = getProducts();
         boolean b = false;
@@ -281,14 +408,14 @@ public class Controller {
             while (!b && j < plist.size()) {
                 if (list.get(i).getpID() == plist.get(j).getpID()) {
                     b = true;
-                    totalPris = totalPris + (plist.get(j).getPris() * list.get(i).getQuantity());
+                    totalPris = totalPris + (plist.get(j).getPris() * list.get(i).getAmount());
                 }
                 j++;
             }
             b = false;
         }
         BigDecimal result = new BigDecimal(totalPris).setScale(2, BigDecimal.ROUND_HALF_UP);
-        if(discount == 0){
+        if (discount == 0) {
             return result;
         }
         discount = 100 - discount;
@@ -296,21 +423,56 @@ public class Controller {
         result = new BigDecimal(totalPris).setScale(2, BigDecimal.ROUND_HALF_UP);
         return result;
     }
-    
+
     public BigDecimal calcTotal(Order o) {
         return calcTotal(o, o.getDiscount());
     }
 
     public double calcDiscount(int discount, double totalpris) {
-        double d = 1/(double)discount;
+        double d = 1 / (double) discount;
         d = 1 - d;
         double totalPrisCalc = totalpris * d;
         return totalPrisCalc;
     }
+
     public void createPDF(Order o) {
         Customer c = getCustomer(o.getCID());
         double dep = calcDeposit(o, 33).doubleValue();
         double total = calcTotal(o).doubleValue();
         new PDFGenerator(c, o, dep, total).create();
+    }
+
+    public void createNedskrivningPDF(ArrayList<OrderDetail> odl, double pris, Order o) {
+        new PDFGenerator(odl, pris, o).createNedskrivningPDF();
+    }
+
+    public void createPakkelistePDF(ArrayList<Order> ol, String datoFra, String datoTil) {
+        PDFGenerator pdf = new PDFGenerator(ol);
+        pdf.createPakkelistePDF(datoFra, datoTil);
+    }
+
+    public void createOrdrelistePDF(ArrayList<Order> l, String datoFra, String datoTil) {
+        new PDFGenerator(l).createOrdrelistePDF(datoFra, datoTil);
+    }
+
+    public void createStatusInstallersPDF(ArrayList<Order> l, String datoFra, String datoTil) {
+        new PDFGenerator(l).createStatusInstallers(datoFra, datoTil);
+    }
+
+    public void createStatusLastbilerPDF(ArrayList<Order> l, String datoFra, String datoTil) {
+        new PDFGenerator(l).createStatusLastbilerPDF(datoFra, datoTil);
+    }
+    //Sebastian
+    public boolean tryLogin(String username, String password)
+    {
+        if(currentUser != null){
+            return false;
+        }
+        dbFacade.startNewBusinessTransaction();
+        currentUser = dbFacade.getUser(username, password);
+        if(currentUser == null){
+            return false;
+        }
+        return true;
     }
 }

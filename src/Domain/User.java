@@ -4,51 +4,46 @@ package Domain;
  *
  * @author Kirstine
  */
-public class User
-{
-    int eID;
-    String brugernavn;
-    String password;
+public class User {
     
-    public User(int eID, String brugernavn, String password)
-    {
-        eID = this.eID;
+    public final static int USER_LEVEL_ADMIN = 1;
+    public final static int USER_LEVEL_NORMAL = 2;
+
+    private int level;
+    private String brugernavn;
+    private String password;
+
+    public User(String brugernavn, String password, int brugerniveau) {
+        level = brugerniveau;
         brugernavn = this.brugernavn;
         password = this.password;
     }
 
-    public int geteID()
-    {
-        return eID;
+    public int getBrugerNiveau() {
+        return level;
     }
 
-    public String getBrugernavn()
-    {
+    public String getBrugernavn() {
         return brugernavn;
     }
 
-    public String getPassword()
-    {
+    public String getPassword() {
         return password;
     }
 
-    public void seteID(int eID)
-    {
-        this.eID = eID;
+    public void setBrugerNiveau(int i) {
+        level = i;
     }
 
-    public void setBrugernavn(String brugernavn)
-    {
+    public void setBrugernavn(String brugernavn) {
         this.brugernavn = brugernavn;
     }
 
-    public void setPassword(String password)
-    {
+    public void setPassword(String password) {
         this.password = password;
     }
-    
-    public String toString()
-    {
-        return eID + ", " + brugernavn + ", " + password;
+
+    public String toString() {
+        return "BRUGER: " + brugernavn + ", PASS: " + password + ", LEVEL:" + level;
     }
 }

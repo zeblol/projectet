@@ -21,8 +21,9 @@ public class Order {
     private ArrayList<OrderDetail> orderdetails;
     private ArrayList<Installer> installers;
     private int discount;
+    private ArrayList<Vehicle> vl;
 
-    public Order(int o, int c, String from, String to, String created, boolean depositPaid, int rabat, int ver) {
+    public Order(int o, int c, String from, String to, String created, boolean depositPaid, int rabat, int ver){
         oID = o;
         cID = c;
         this.ver = ver;
@@ -33,6 +34,7 @@ public class Order {
         toDate = toDate(to);
         orderdetails = new ArrayList();
         installers = new ArrayList();
+        vl = new ArrayList();
     }
     
     public Order(int o, int c, Date datoFra, Date datoTil, Date created, boolean depositPaid, int rabat, int ver){
@@ -46,6 +48,7 @@ public class Order {
         toDate = datoTil;
         orderdetails = new ArrayList();
         installers = new ArrayList();
+        vl = new ArrayList();
     }
     
     private Date toDate(String s){
@@ -64,6 +67,22 @@ public class Order {
     
     public int getDiscount(){
         return discount;
+    }
+    
+    public ArrayList<Vehicle> getVehicles(){
+        return vl;
+    }
+    
+    public void removeVehicle(Vehicle v){
+        if(vl.contains(v)){
+            vl.remove(v);
+        }
+    }
+    
+    public void addVehicle(Vehicle v){
+        if(!vl.contains(v)){
+            vl.add(v);
+        }
     }
     
     public void setDiscount(int i){

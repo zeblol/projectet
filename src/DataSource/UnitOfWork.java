@@ -20,6 +20,9 @@ public class UnitOfWork {
     private ArrayList<Customer> dirtyCustomers;
     private ArrayList<Installer> newInstallers;
     private ArrayList<Installer> removedInstallers;
+    private ArrayList<Vehicle> removedVehicles;
+    private ArrayList<Vehicle> newVehicles;
+    private ArrayList<Product> newProducts;
 
     public UnitOfWork() {
         dirtyProducts = new ArrayList();
@@ -32,6 +35,9 @@ public class UnitOfWork {
         dirtyCustomers = new ArrayList();
         newInstallers = new ArrayList();
         removedInstallers = new ArrayList();
+        removedVehicles = new ArrayList();
+        newVehicles = new ArrayList();
+        newProducts = new ArrayList();
     }
 
     public void addDirtyOrder(Order o) {
@@ -54,22 +60,23 @@ public class UnitOfWork {
         }
     }
 
-    // Frederik
-    public ArrayList<Product> getProducts(Connection conn) {
-        ArrayList<Product> al = null;
-        try {
-            al = new ProductMapper().getProducts(conn);
-        } catch (Exception e) {
-            System.out.println("fail in UnitOfWork - getProducts()");
-            System.err.println(e);
-        }
-        return al;
-    }
-
     //sebastian
     public void registerNewCustomer(Customer c) {
         if (!newCustomers.contains(c) && !dirtyCustomers.contains(c)) {
             newCustomers.add(c);
+        }
+    }
+    //sebastian
+    public void registerNewProduct(Product p) {
+        if (!newProducts.contains(p) && !dirtyProducts.contains(p)) {
+            newProducts.add(p);
+        }
+    }
+    
+    //Frederik
+    public void registerRemovedVehicle(Vehicle v){
+        if(!removedVehicles.contains(v) && !newVehicles.contains(v)){
+            removedVehicles.add(v);
         }
     }
 
@@ -81,7 +88,7 @@ public class UnitOfWork {
     }
 
     public void addDirtyProduct(Product p) {
-        if (!dirtyProducts.contains(p)) {
+        if (!dirtyProducts.contains(p) && !newProducts.contains(p)) {
             dirtyProducts.add(p);
         }
     }
@@ -91,7 +98,14 @@ public class UnitOfWork {
             newOrders.add(o);
         }
     }
-
+    
+    // Frederik
+    public void registerNewVehicle(Vehicle v){
+        if(!newVehicles.contains(v) && !removedVehicles.contains(v)){
+            newVehicles.add(v);
+        }
+    }
+    
     public void registerNewOrderDetail(OrderDetail od) {
         if (!newOrderDetails.contains(od) && !dirtyOrderDetails.contains(od)) {
             newOrderDetails.add(od);
@@ -138,6 +152,9 @@ public class UnitOfWork {
             status = status && om.removeInstallers(removedInstallers, conn);
             status = status && om.updateOrderDetails(dirtyOrderDetails, conn);
             status = status && om.updateOrders(dirtyOrders, conn);
+            status = status && om.insertBookedVehicles(newVehicles, conn);
+            status = status && om.removeBookedVehicles(removedVehicles, conn);
+            status = status && pm.insertProducts(newProducts, conn);
             if (!status) {
                 throw new Exception("Business Transaction aborted");
             }

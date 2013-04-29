@@ -55,6 +55,49 @@ public class CustomerMapper {
         }
         return c;
     }
+    
+    //Sebastian
+    public Customer getCustomerByPhone(Connection conn, int phone) {
+        Customer c = null;
+        String SQLString  = "select * "
+                + "from customers "
+                + "where tlfnr = ?";
+        PreparedStatement statement = null;
+        try {
+            statement = conn.prepareStatement(SQLString);
+            statement.setInt(1, phone);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next())
+            {
+                c = new Customer(rs.getInt(1), rs.getString(2), rs.getString(3), phone, rs.getString(5), rs.getInt(6));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Fail in CustomerMapper - getCustomerByPhone");
+            System.out.println(ex.getMessage());
+        }
+        return c;
+    }
+    
+    // Kirstine og Charlotte
+    public Customer getCustomerByEmail(Connection conn, String email){
+        Customer c = null;
+        String SQLString = "select * "
+                + "from customers "
+                + "where upper (email)  = upper (?)";
+        PreparedStatement statement = null;
+        try{
+            statement = conn.prepareStatement(SQLString);
+            statement.setString(1, email);
+            ResultSet rs = statement.executeQuery();
+            if(rs.next()){
+                c = new Customer(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getInt(6));
+            }
+        } catch (SQLException ex){
+            System.out.println("Fail in CustomerMapper - getCustomerByEmail");
+            System.out.println(ex.getMessage());
+        }
+        return c;
+    }
 
     //sebastian
     public int getNextCustomerID(Connection conn) {

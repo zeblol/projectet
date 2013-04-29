@@ -6,6 +6,8 @@ import Domain.Installer;
 import Domain.Order;
 import Domain.OrderDetail;
 import Domain.Product;
+import Domain.User;
+import Domain.Vehicle;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.ArrayList;
@@ -41,6 +43,20 @@ public class DBFacade {
         }
         return pl;
     }
+    
+    public Vehicle getVehicle(int vID){
+        Connection conn = null;
+        Vehicle v = null;
+        try {
+            conn = getConnection();
+            v = new OrderMapper().getVehicle(conn, vID);
+        } finally {
+            releaseConnection(conn);
+        }
+        return v;
+    }
+    
+    
 
     // Frederik
     public Order getOrder(int oID) {
@@ -63,6 +79,34 @@ public class DBFacade {
             conn = getConnection();
             c = new CustomerMapper().getCustomer(conn, cID);
         } finally {
+            releaseConnection(conn);
+        }
+        return c;
+    }
+    
+    //Sebastian
+    public Customer getCustomerByPhone(int phone) {
+        Connection conn = null;
+        Customer c = null;
+        try {
+            conn = getConnection();
+            c = new CustomerMapper().getCustomerByPhone(conn, phone);
+        } finally {
+            releaseConnection(conn);
+        }
+        return c;
+    }
+    
+    // Kirstine og Charlotte
+    public Customer getCustomerByEmail(String mail)
+    {
+        Connection conn = null;
+        Customer c = null;
+        try{
+            conn = getConnection();
+            c = new CustomerMapper().getCustomerByEmail(conn, mail);
+        }
+        finally{
             releaseConnection(conn);
         }
         return c;
@@ -101,7 +145,20 @@ public class DBFacade {
             uow.addRemovedOrderDetail(od);
         }
     }
-
+    
+    //Frederik
+    public void registerRemovedVehicle(Vehicle v){
+        if(uow != null){
+            uow.registerRemovedVehicle(v);
+        }
+    }
+    
+    public void registerNewVehicle(Vehicle v){
+        if(uow != null){
+            uow.registerNewVehicle(v);
+        }
+    }
+    
     // Sebastian
     public void addRemovedInstaller(Installer in) {
         if (uow != null) {
@@ -136,7 +193,21 @@ public class DBFacade {
         }
         return il;
     }
-
+    
+    //Frederik
+    public ArrayList<Vehicle> getVehicles(String from, String to){
+        Connection conn = null;
+        ArrayList<Vehicle> vl = null;
+        try {
+            conn = getConnection();
+            vl = new OrderMapper().getVehicles(conn, from, to);
+        } finally {
+            releaseConnection(conn);
+        }
+        return vl;
+    }
+    
+    // Frederik
     public ArrayList<Order> getOrders(String fromDate, String toDate) {
         Connection conn = null;
         ArrayList<Order> al = null;
@@ -167,7 +238,20 @@ public class DBFacade {
         }
         return nextOID;
     }
-
+    
+    // Frederik
+    public int getNextProductID(){
+        Connection conn = null;
+        int nextPID = 0;
+        try {
+            conn = getConnection();
+            nextPID = new ProductMapper().getNextProductID(conn);
+        } finally {
+            releaseConnection(conn);
+        }
+        return nextPID;
+    }
+    
     // Frederik
     public int getNextCustomerID() {
         Connection conn = null;
@@ -190,6 +274,11 @@ public class DBFacade {
     public void registerNewCustomer(Customer c) {
         if (uow != null) {
             uow.registerNewCustomer(c);
+        }
+    }
+    public void registerNewProduct(Product p) {
+        if (uow != null) {
+            uow.registerNewProduct(p);
         }
     }
 
@@ -242,5 +331,18 @@ public class DBFacade {
             uow = null;
         }
         return status;
+    }
+    //sebastian
+    public User getUser(String username, String password)
+    {
+        Connection conn = null;
+        User u = null;
+        try {
+            conn = getConnection();
+            u = new Mapper().getUser(conn, username, password);
+        } finally {
+            releaseConnection(conn);
+        }
+        return u;
     }
 }

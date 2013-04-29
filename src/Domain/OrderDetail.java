@@ -35,7 +35,7 @@ public class OrderDetail {
         return pID;
     }
 
-    public int getQuantity() {
+    public int getAmount() {
         return amount;
     }
 
@@ -48,7 +48,7 @@ public class OrderDetail {
     }
 
     public String toString() {
-        return "ID: " + pID + "   " + amount;
+        return "(" + pID + ") " + ":   " + amount;
     }
     public void incrVer(){
         ver++;
