@@ -15,8 +15,8 @@ public class User {
 
     public User(String brugernavn, String password, int brugerniveau) {
         level = brugerniveau;
-        brugernavn = this.brugernavn;
-        password = this.password;
+        this.brugernavn = brugernavn;
+        this.password = password;
     }
 
     public int getBrugerNiveau() {
@@ -44,6 +44,6 @@ public class User {
     }
 
     public String toString() {
-        return "BRUGER: " + brugernavn + ", PASS: " + password + ", LEVEL:" + level;
+        return brugernavn;
     }
 }

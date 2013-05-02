@@ -1,3 +1,4 @@
+
 package DataSource;
 
 import Domain.Customer;
@@ -23,7 +24,7 @@ public class DBFacade {
 
     private DBFacade() {
     }
-
+  
     public static DBFacade getInstance() {
         if (instance == null) {
             instance = new DBFacade();
@@ -42,6 +43,18 @@ public class DBFacade {
             releaseConnection(conn);
         }
         return pl;
+    }
+    //sebastian
+    public ArrayList<User> getUsers() {
+        Connection conn = null;
+        ArrayList<User> ul = null;
+        try {
+            conn = getConnection();
+            ul = new UserMapper().getUsers(conn);
+        } finally {
+            releaseConnection(conn);
+        }
+        return ul;
     }
     
     public Vehicle getVehicle(int vID){
@@ -138,6 +151,11 @@ public class DBFacade {
             System.out.println(od);
         }
     }
+    public void registerDirtyUser(User u) {
+        if(uow != null) {
+            uow.registerDirtyUser(u);
+        }
+    }
 
     // Charlotte
     public void addRemovedOrderDetail(OrderDetail od) {
@@ -156,6 +174,17 @@ public class DBFacade {
     public void registerNewVehicle(Vehicle v){
         if(uow != null){
             uow.registerNewVehicle(v);
+        }
+    }
+    public void registerNewUser(User u) {
+        if(uow != null){
+            uow.registerNewUser(u);
+        }
+    }
+    //sebastian
+    public void registerRemovedUser(User u) {
+        if(uow != null){
+            uow.registerRemovedUser(u);
         }
     }
     
@@ -181,7 +210,7 @@ public class DBFacade {
         }
         return el;
     }
-
+    //Sebastian
     public ArrayList<Installer> getInstallers(String fromDate, String toDate) {
         Connection conn = null;
         ArrayList<Installer> il = null;
@@ -205,6 +234,18 @@ public class DBFacade {
             releaseConnection(conn);
         }
         return vl;
+    }
+    
+    public ArrayList<Order> getOrders(Customer c){
+        Connection conn = null;
+        ArrayList<Order> ol = null;
+        try {
+            conn = getConnection();
+            ol = new OrderMapper().getOrders(conn, c);
+        } finally {
+            releaseConnection(conn);
+        }
+        return ol;
     }
     
     // Frederik
@@ -344,5 +385,18 @@ public class DBFacade {
             releaseConnection(conn);
         }
         return u;
+    }
+    //Sebastian
+    public boolean employeeExists(int eID)
+    {
+        Connection conn = null;
+        boolean b = false;
+        try {
+            conn = getConnection();
+            b = new EmployeeMapper().employeeExists(conn, eID);
+        } finally {
+            releaseConnection(conn);
+        }
+        return b;
     }
 }

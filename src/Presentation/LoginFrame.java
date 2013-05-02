@@ -1,8 +1,14 @@
-package Test;
+package Presentation;
 
 import Domain.Controller;
+import Test.TestFrame;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -17,7 +23,25 @@ public class LoginFrame extends javax.swing.JFrame {
      */
     public LoginFrame() {
         initComponents();
-        control = new Controller();
+        control = Controller.getInstance();
+        setupFrame();
+    }
+    
+    private void setupFrame(){
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException | 
+                IllegalAccessException | UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        setResizable(false);
+        int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
+        int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
+        setLocation((screenWidth - getWidth()) / 2, (screenHeight - getHeight()) / 2);
+    }
+
+    private void showMessage(String message) {
+        JOptionPane.showMessageDialog(this, message);
     }
 
     /**
@@ -27,8 +51,7 @@ public class LoginFrame extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jLabelLoginTitle = new javax.swing.JLabel();
         jTextFieldLoginPassword = new javax.swing.JTextField();
@@ -43,17 +66,16 @@ public class LoginFrame extends javax.swing.JFrame {
         jLabelLoginTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelLoginTitle.setText("LOGIN");
 
-        jTextFieldLoginPassword.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jTextFieldLoginPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldLoginPasswordActionPerformed(evt);
             }
         });
-        jTextFieldLoginPassword.addKeyListener(new java.awt.event.KeyAdapter()
-        {
-            public void keyReleased(java.awt.event.KeyEvent evt)
-            {
+        jTextFieldLoginPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldLoginPasswordKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextFieldLoginPasswordKeyReleased(evt);
             }
         });
@@ -61,11 +83,14 @@ public class LoginFrame extends javax.swing.JFrame {
         jLabelLoginUsername.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelLoginUsername.setText("Brugernavn");
 
-        jTextFieldLoginUsername.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jTextFieldLoginUsername.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldLoginUsernameActionPerformed(evt);
+            }
+        });
+        jTextFieldLoginUsername.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldLoginUsernameKeyPressed(evt);
             }
         });
 
@@ -73,17 +98,13 @@ public class LoginFrame extends javax.swing.JFrame {
         jLabelLoginPassword.setText("Password");
 
         jButtonLogin.setText("Login");
-        jButtonLogin.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLoginActionPerformed(evt);
             }
         });
-        jButtonLogin.addKeyListener(new java.awt.event.KeyAdapter()
-        {
-            public void keyReleased(java.awt.event.KeyEvent evt)
-            {
+        jButtonLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
                 jButtonLoginKeyReleased(evt);
             }
         });
@@ -94,40 +115,39 @@ public class LoginFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabelLoginTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jLabelLoginUsername, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(151, Short.MAX_VALUE)
-                .addComponent(jTextFieldLoginPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(132, 132, 132))
-            .addComponent(jLabelLoginPassword, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(239, 239, 239)
-                .addComponent(jButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(151, Short.MAX_VALUE)
-                    .addComponent(jTextFieldLoginUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(132, 132, 132)))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabelLoginPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 81, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldLoginUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldLoginPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(91, 91, 91))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(200, 200, 200)
+                .addComponent(jButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addContainerGap()
                 .addComponent(jLabelLoginTitle)
-                .addGap(67, 67, 67)
+                .addGap(18, 18, 18)
                 .addComponent(jLabelLoginUsername)
-                .addGap(90, 90, 90)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldLoginUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14)
                 .addComponent(jLabelLoginPassword)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldLoginPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-                .addComponent(jButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(144, 144, 144)
-                    .addComponent(jTextFieldLoginUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(257, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
+                .addComponent(jButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -145,28 +165,41 @@ public class LoginFrame extends javax.swing.JFrame {
     //sebastian
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonLoginActionPerformed
     {//GEN-HEADEREND:event_jButtonLoginActionPerformed
-        // TJEK OM USERNAME ER INT
-        boolean b = control.tryLogin(jTextFieldLoginUsername.getText(), jTextFieldLoginPassword.getText());
-        if (b) {
-            new TestFrame(control).setVisible(true);
-            setVisible(false); //Setter LoginFrame til ikke at vises
-        } else {
-            JOptionPane.showMessageDialog(null, "Brugernavn eller password passer ikke!");
+        String username = jTextFieldLoginUsername.getText();
+        try {
+            Integer.parseInt(username);
+            boolean b = control.tryLogin(username, jTextFieldLoginPassword.getText());
+            if (b) {
+                new MainFrame().setVisible(true);
+                setVisible(false); //Setter LoginFrame til ikke at vises
+            } else {
+                showMessage("Brugernavn eller password passer ikke!");
+            }
+        } catch (NumberFormatException e) {
+            showMessage("Dit brugernavn må kun indeholde tal.");
         }
-
     }//GEN-LAST:event_jButtonLoginActionPerformed
 
     private void jButtonLoginKeyReleased(java.awt.event.KeyEvent evt)//GEN-FIRST:event_jButtonLoginKeyReleased
     {//GEN-HEADEREND:event_jButtonLoginKeyReleased
-
     }//GEN-LAST:event_jButtonLoginKeyReleased
 
     private void jTextFieldLoginPasswordKeyReleased(java.awt.event.KeyEvent evt)//GEN-FIRST:event_jTextFieldLoginPasswordKeyReleased
     {//GEN-HEADEREND:event_jTextFieldLoginPasswordKeyReleased
-         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+    //
+    }//GEN-LAST:event_jTextFieldLoginPasswordKeyReleased
+
+    private void jTextFieldLoginUsernameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldLoginUsernameKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             jButtonLogin.doClick();
         }
-    }//GEN-LAST:event_jTextFieldLoginPasswordKeyReleased
+    }//GEN-LAST:event_jTextFieldLoginUsernameKeyPressed
+
+    private void jTextFieldLoginPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldLoginPasswordKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            jButtonLogin.doClick();
+        }
+    }//GEN-LAST:event_jTextFieldLoginPasswordKeyPressed
 
     /**
      * @param args the command line arguments

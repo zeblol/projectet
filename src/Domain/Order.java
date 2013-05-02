@@ -52,7 +52,12 @@ public class Order {
     }
     
     private Date toDate(String s){
+        System.out.println(s);
         String[] array = s.split("-");
+        for (int i = 0; i < array.length; i++) {
+            String string = array[i];
+            System.out.println(string);
+        }
         Calendar c = new GregorianCalendar();
         String sMonth = array[1].replace("jan", "0").replace("feb", "1")
                 .replace("mar", "2").replace("apr", "3").replace("may", "4")
@@ -60,6 +65,7 @@ public class Order {
                 .replace("sep", "8").replace("oct", "9").replace("nov", "10")
                 .replace("dec", "11");
         int month = Integer.parseInt(sMonth);
+//        System.out.println(array[2] + ", " + month + ", " + Integer.parseInt(array[0]));
         c.set(Integer.parseInt(array[2]), month, Integer.parseInt(array[0]),0 ,0 ,0);
         
         return new Date(c.getTimeInMillis());
@@ -172,7 +178,7 @@ public class Order {
     }
 
     public String toString() {
-        return " OID: " + oID + " CID: " + cID;
+        return " OID: " + oID;
     }
 
     public String detailsToString() {

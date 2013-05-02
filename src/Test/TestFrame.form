@@ -73,6 +73,21 @@
             </MenuItem>
           </SubComponents>
         </Menu>
+        <Menu class="javax.swing.JMenu" name="menuBrugere">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Brugere"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="miBrugere">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Administrer"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miBrugereActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
       </SubComponents>
     </Menu>
   </NonVisualComponents>
@@ -924,6 +939,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Depositum betalt?"/>
       </Properties>
+      <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="cbDepositumStateChanged"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel18">
       <Properties>

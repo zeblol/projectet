@@ -1,5 +1,6 @@
 package DataSource;
 
+import Domain.Customer;
 import Domain.Installer;
 import Domain.Order;
 import Domain.OrderDetail;
@@ -293,6 +294,27 @@ public class OrderMapper {
             return ol;
     }
 
+    public ArrayList<Order> getOrders(Connection conn, Customer c){
+        ArrayList<Order> ol = null;
+        String SQLString = "select oid "
+                + "from orders "
+                + "where cid  = ?";
+        PreparedStatement statement = null;
+        try {
+            statement = conn.prepareStatement(SQLString);
+            statement.setInt(1, c.getcID());
+            ResultSet rs = statement.executeQuery();
+            ol = new ArrayList();
+            while(rs.next()){
+                ol.add(getOrder(conn, rs.getInt(1)));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Fail in OrderMapper - getOrders(Customer)");
+            Logger.getLogger(OrderMapper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ol;
+    }
+    
     //Frederik
     public Order getOrder(Connection conn, int oID) {
         Order o = null;
@@ -355,7 +377,7 @@ public class OrderMapper {
         }
         return o;
     }
-
+    // Frederik
     public Vehicle getVehicle(Connection conn, int vID) {
         Vehicle vehicle = null;
         try {
@@ -456,7 +478,7 @@ public class OrderMapper {
         System.out.println("insertOrderDetails: " + (rowsInserted == odl.size()));
         return rowsInserted == odl.size();
     }
-    
+    // Frederik
     public boolean insertBookedVehicles(ArrayList<Vehicle> vl, Connection conn) throws SQLException {
         String SQLString = "insert into booked_vehicles values (?, ?, to_date(?,'dd-mon-yyyy hh24:mi'),to_date(?,'dd-mon-yyyy hh24:mi'))";
         PreparedStatement statement = null;
@@ -475,7 +497,7 @@ public class OrderMapper {
         System.out.println("insertBookedVehicles: " + (rowsInserted == vl.size()));
         return rowsInserted == vl.size();
     }
-    
+    // Frederik
     public boolean removeBookedVehicles(ArrayList<Vehicle> vl, Connection conn) throws SQLException {
         String SQLString = "delete from booked_vehicles where oid = ? and vid = ?";
         int rowsRemoved = 0;

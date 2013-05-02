@@ -32,41 +32,33 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="buttonCancel" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="102" attributes="0">
                               <Component id="jScrollPane1" min="-2" pref="131" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="buttonCancel" min="-2" pref="91" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="buttonPrint" min="-2" pref="73" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="115" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="1" attributes="0">
+                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="tfFra" min="-2" pref="103" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="tfTil" min="-2" pref="102" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="buttonSearch" min="-2" pref="66" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
-                  <Group type="102" attributes="0">
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="tfFra" min="-2" pref="103" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="buttonSearch" min="-2" pref="66" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
               </Group>
+              <EmptySpace min="0" pref="10" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -74,29 +66,29 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
+              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="tfFra" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="tfTil" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonSearch" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" pref="193" max="32767" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="buttonSearch" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="buttonCancel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonPrint" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-              </Group>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="buttonPrint" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="buttonCancel" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" pref="174" max="32767" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -139,7 +131,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Ordrer&gt;"/>
+        <Property name="text" type="java.lang.String" value="Ordrer:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="buttonCancel">
@@ -162,6 +154,11 @@
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
         <Property name="text" type="java.lang.String" value="Til:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel5">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Opret ordreliste."/>
       </Properties>
     </Component>
   </SubComponents>

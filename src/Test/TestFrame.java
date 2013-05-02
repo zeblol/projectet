@@ -1,5 +1,12 @@
 package Test;
 
+import Presentation.PakkelisteFrame;
+import Presentation.NedskrivningFrame;
+import Presentation.UsersFrame;
+import Presentation.StatusVehicleFrame;
+import Presentation.OrdrelisteFrame;
+import Presentation.ResourceFrame;
+import Presentation.StatusInstallerFrame;
 import Domain.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -222,6 +229,8 @@ public class TestFrame extends javax.swing.JFrame {
         miInstallers = new javax.swing.JMenuItem();
         menuLager = new javax.swing.JMenu();
         miOpdaterlager = new javax.swing.JMenuItem();
+        menuBrugere = new javax.swing.JMenu();
+        miBrugere = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -348,6 +357,11 @@ public class TestFrame extends javax.swing.JFrame {
         labelDepositum.setText("jLabel18");
 
         cbDepositum.setText("Depositum betalt?");
+        cbDepositum.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                cbDepositumStateChanged(evt);
+            }
+        });
 
         jLabel18.setText("Employee ID:");
 
@@ -522,6 +536,18 @@ public class TestFrame extends javax.swing.JFrame {
         menuLager.add(miOpdaterlager);
 
         jMenuBar1.add(menuLager);
+
+        menuBrugere.setText("Brugere");
+
+        miBrugere.setText("Administrer");
+        miBrugere.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miBrugereActionPerformed(evt);
+            }
+        });
+        menuBrugere.add(miBrugere);
+
+        jMenuBar1.add(menuBrugere);
 
         setJMenuBar(jMenuBar1);
 
@@ -1328,7 +1354,7 @@ public class TestFrame extends javax.swing.JFrame {
 
     private void miNedskrivningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miNedskrivningActionPerformed
         // TODO add your handling code here:
-        new NedskrivningFrame(control).setVisible(true);
+        new NedskrivningFrame().setVisible(true);
     }//GEN-LAST:event_miNedskrivningActionPerformed
 
     private void buttonSletVehicleOpdaterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSletVehicleOpdaterActionPerformed
@@ -1350,12 +1376,12 @@ public class TestFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonSletVehicleOpdaterActionPerformed
 
     private void miPakkelisteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miPakkelisteActionPerformed
-        new PakkelisteFrame(control).setVisible(true);
+        new PakkelisteFrame().setVisible(true);
     }//GEN-LAST:event_miPakkelisteActionPerformed
 
     private void miOrdrelisteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miOrdrelisteActionPerformed
         // TODO add your handling code here:
-        new OrdrelisteFrame(control).setVisible(true);
+        new OrdrelisteFrame().setVisible(true);
     }//GEN-LAST:event_miOrdrelisteActionPerformed
 
     private void tfFromInstallerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfFromInstallerActionPerformed
@@ -1374,18 +1400,27 @@ public class TestFrame extends javax.swing.JFrame {
 
     private void miInstallersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miInstallersActionPerformed
         // TODO add your handling code here:
-        new StatusInstallerFrame(control).setVisible(true);
+        new StatusInstallerFrame().setVisible(true);
     }//GEN-LAST:event_miInstallersActionPerformed
 
     private void miVehiclesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miVehiclesActionPerformed
         // TODO add your handling code here:
-        new StatusVehicleFrame(control).setVisible(true);
+        new StatusVehicleFrame().setVisible(true);
     }//GEN-LAST:event_miVehiclesActionPerformed
 
     private void miOpdaterlagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miOpdaterlagerActionPerformed
         // TODO add your handling code here:
-        new ResourceFrame(control).setVisible(true);
+        new ResourceFrame().setVisible(true);
     }//GEN-LAST:event_miOpdaterlagerActionPerformed
+
+    private void miBrugereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miBrugereActionPerformed
+        // TODO add your handling code here:
+        new UsersFrame().setVisible(true);
+    }//GEN-LAST:event_miBrugereActionPerformed
+
+    private void cbDepositumStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_cbDepositumStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbDepositumStateChanged
 
     private void searchCustomerSetText(Customer c){
         tfSearchEmail.setText(c.getcEmail());
@@ -1475,7 +1510,9 @@ public class TestFrame extends javax.swing.JFrame {
     private javax.swing.JList listProducts;
     private javax.swing.JList listSelected;
     private javax.swing.JList listV;
+    private javax.swing.JMenu menuBrugere;
     private javax.swing.JMenu menuLager;
+    private javax.swing.JMenuItem miBrugere;
     private javax.swing.JMenuItem miInstallers;
     private javax.swing.JMenuItem miNedskrivning;
     private javax.swing.JMenuItem miOpdaterlager;

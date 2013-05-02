@@ -32,50 +32,44 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="buttonCancel" min="-2" pref="91" max="-2" attributes="0"/>
+                  <Component id="buttonCancel" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <Component id="jScrollPane1" min="-2" pref="131" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="labelPID" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="buttonOpdater" max="32767" attributes="0"/>
+                                          <Component id="buttonSlet" max="32767" attributes="0"/>
+                                          <Component id="buttonOpret" max="32767" attributes="0"/>
+                                      </Group>
                                   </Group>
-                                  <Group type="102" alignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
                                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="tfPNavn" min="-2" pref="136" max="-2" attributes="0"/>
+                                      <Component id="tfPass" max="32767" attributes="0"/>
                                   </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="tfAntal" max="32767" attributes="0"/>
-                                          <Component id="tfPris" pref="85" max="32767" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="tfID" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="buttonOpdater" min="-2" pref="119" max="-2" attributes="0"/>
-                                  <Component id="buttonOpret" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="cbLevel" pref="108" max="32767" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="135" max="32767" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -84,36 +78,33 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane1" pref="225" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="labelPID" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="tfPNavn" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfID" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="tfAntal" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfPass" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="tfPris" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cbLevel" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
                       <Component id="buttonOpret" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="buttonOpdater" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="buttonSlet" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="jScrollPane1" min="-2" pref="222" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="buttonCancel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -128,7 +119,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JList" name="listProducts">
+        <Component class="javax.swing.JList" name="listUsers">
           <Properties>
             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
               <StringArray count="0"/>
@@ -138,17 +129,9 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="buttonOpdater">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Opdater produkt"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonOpdaterActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Eksisterende produkter:"/>
+        <Property name="text" type="java.lang.String" value="Brugere:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="buttonCancel">
@@ -159,9 +142,25 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCancelActionPerformed"/>
       </Events>
     </Component>
+    <Component class="javax.swing.JButton" name="buttonSlet">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Slet bruger"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSletActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="buttonOpdater">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Opdater bruger"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonOpdaterActionPerformed"/>
+      </Events>
+    </Component>
     <Component class="javax.swing.JButton" name="buttonOpret">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Opret nyt produkt"/>
+        <Property name="text" type="java.lang.String" value="Opret bruger"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonOpretActionPerformed"/>
@@ -169,31 +168,32 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Produkt ID:"/>
+        <Property name="text" type="java.lang.String" value="Brugernavn / ID:"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="labelPID">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Produkt:"/>
+        <Property name="text" type="java.lang.String" value="Kodeord:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="tfPNavn">
+    <Component class="javax.swing.JTextField" name="tfID">
+    </Component>
+    <Component class="javax.swing.JTextField" name="tfPass">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Antal:"/>
+        <Property name="text" type="java.lang.String" value="Brugerniveau:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="tfAntal">
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel6">
+    <Component class="javax.swing.JComboBox" name="cbLevel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Pris:"/>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="2">
+            <StringItem index="0" value="(1) H&#xf8;j"/>
+            <StringItem index="1" value="(2) Normal"/>
+          </StringArray>
+        </Property>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="tfPris">
     </Component>
   </SubComponents>
 </Form>

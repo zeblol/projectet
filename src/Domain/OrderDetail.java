@@ -50,6 +50,7 @@ public class OrderDetail {
     public String toString() {
         return "(" + pID + ") " + ":   " + amount;
     }
+    
     public void incrVer(){
         ver++;
     }

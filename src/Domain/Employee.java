@@ -6,9 +6,9 @@ package Domain;
  * @author Riboe
  */
 public class Employee {
-    int eID;
-    String eNavn;
-    String eJob;
+    private int eID;
+    private String eNavn;
+    private String eJob;
 
     public Employee(int eID, String eNavn, String eJob) {
         this.eID = eID;

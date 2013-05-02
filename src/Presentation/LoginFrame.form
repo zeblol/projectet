@@ -24,47 +24,46 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jLabelLoginTitle" alignment="0" max="32767" attributes="0"/>
           <Component id="jLabelLoginUsername" alignment="1" max="32767" attributes="0"/>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="151" max="32767" attributes="0"/>
-              <Component id="jTextFieldLoginPassword" min="-2" pref="343" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="132" max="-2" attributes="0"/>
-          </Group>
-          <Component id="jLabelLoginPassword" alignment="1" max="32767" attributes="0"/>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="239" max="-2" attributes="0"/>
-              <Component id="jButtonLogin" min="-2" pref="148" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
-          </Group>
-          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="151" max="32767" attributes="0"/>
-                  <Component id="jTextFieldLoginUsername" min="-2" pref="343" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="132" max="-2" attributes="0"/>
+          <Group type="102" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jLabelLoginPassword" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="0" pref="81" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jTextFieldLoginUsername" min="-2" pref="343" max="-2" attributes="0"/>
+                          <Component id="jTextFieldLoginPassword" min="-2" pref="343" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
+                  </Group>
               </Group>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="200" max="-2" attributes="0"/>
+              <Component id="jButtonLogin" min="-2" pref="125" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="jLabelLoginTitle" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
+              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
               <Component id="jLabelLoginUsername" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jTextFieldLoginUsername" min="-2" pref="36" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
               <Component id="jLabelLoginPassword" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jTextFieldLoginPassword" min="-2" pref="36" max="-2" attributes="0"/>
-              <EmptySpace pref="54" max="32767" attributes="0"/>
-              <Component id="jButtonLogin" min="-2" pref="50" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-          </Group>
-          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="144" max="-2" attributes="0"/>
-                  <Component id="jTextFieldLoginUsername" min="-2" pref="36" max="-2" attributes="0"/>
-                  <EmptySpace pref="257" max="32767" attributes="0"/>
-              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="jButtonLogin" min="-2" pref="40" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -82,6 +81,7 @@
     <Component class="javax.swing.JTextField" name="jTextFieldLoginPassword">
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldLoginPasswordActionPerformed"/>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextFieldLoginPasswordKeyPressed"/>
         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextFieldLoginPasswordKeyReleased"/>
       </Events>
     </Component>
@@ -94,6 +94,7 @@
     <Component class="javax.swing.JTextField" name="jTextFieldLoginUsername">
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldLoginUsernameActionPerformed"/>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextFieldLoginUsernameKeyPressed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelLoginPassword">

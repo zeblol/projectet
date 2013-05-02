@@ -15,6 +15,7 @@ public class Controller {
 
     private boolean processingOrder;
     private boolean processingCustomer;
+    private boolean processingUser;
     private Order currentOrder;
     private DBFacade dbFacade;
     private boolean processingOrderDetail;
@@ -25,10 +26,13 @@ public class Controller {
     private Installer currentInstaller;
     private Vehicle currentVehicle;
     private User currentUser;
+    private User activeUser;
+    private static Controller instance;
 
-    public Controller() {
+    private Controller() {
         processingOrder = false;
         processingCustomer = false;
+        processingUser = false;
         currentOrder = null;
         dbFacade = DBFacade.getInstance();
         processingProduct = false;
@@ -36,8 +40,16 @@ public class Controller {
         currentCustomer = null;
         currentOrderDetail = null;
         currentInstaller = null;
-        processingOrderDetail = false;
         currentUser = null;
+        processingOrderDetail = false;
+        activeUser = null;
+    }
+    
+    public static Controller getInstance(){
+        if(instance == null){
+            instance = new Controller();
+        }
+        return instance;
     }
     
     public void registerDirtyOrder(Order o) {
@@ -46,7 +58,26 @@ public class Controller {
         dbFacade.startNewBusinessTransaction();
         dbFacade.addDirtyOrder(o);
     }
-
+    //Sebastian 
+    public void registerDirtyUser (User u) {
+        currentUser = u;
+        processingUser = true;
+        dbFacade.startNewBusinessTransaction();
+        dbFacade.registerDirtyUser(u);
+    }
+    
+    public ArrayList<Order> getOrders(Customer c){
+        if(processingOrder){
+            return null;
+        }
+        ArrayList<Order> ol = null;
+        dbFacade.startNewBusinessTransaction();
+        if(c != null){
+            ol = dbFacade.getOrders(c);
+        }
+        return ol;
+    }
+    
     public Order getOrder(int oID) {
         if (processingOrder) {
             return null;
@@ -58,6 +89,10 @@ public class Controller {
         }
         return o;
     }
+    public ArrayList<User> getUsers() {
+     dbFacade.startNewBusinessTransaction();
+     return dbFacade.getUsers();
+    }
 
     // Frederik
     public String getCity(int zip) {
@@ -67,6 +102,9 @@ public class Controller {
             s = dbFacade.getCity(zip);
         }
         return s;
+    }
+    private boolean employeeExists(int eID) {
+        return dbFacade.employeeExists(eID);
     }
 
     // Sebastian
@@ -160,10 +198,10 @@ public class Controller {
     }
     
     public int getUserLevel(){
-        if(currentUser == null){
+        if(activeUser == null){
             return -1;
         }
-        return currentUser.getBrugerNiveau();
+        return activeUser.getBrugerNiveau();
     }
     
     //Frederik
@@ -183,6 +221,22 @@ public class Controller {
             currentProduct = null;
         }
         return currentProduct;
+    }
+    
+    public User createUser(String brugernavn, String password, int userlvl) {
+        if(processingUser) {
+            return null;
+        }
+        if(employeeExists(Integer.parseInt(brugernavn))){
+        dbFacade.startNewBusinessTransaction();
+        processingUser = true;
+        currentUser = new User(brugernavn, password, userlvl);
+        dbFacade.registerNewUser(currentUser);
+        } else {
+            processingUser = false;
+            currentUser = null;
+        }
+        return currentUser;
     }
 
     //Sebastian
@@ -246,7 +300,7 @@ public class Controller {
         }
         return status;
     }
-    
+    // Frederik
     public boolean addVehicle(int vID, String from, String to){
         boolean status = false;
         if(processingOrder){
@@ -260,7 +314,7 @@ public class Controller {
         }
         return status;
     }
-    
+    // Frederik
     public Vehicle getVehicle(int vID){
         return dbFacade.getVehicle(vID);
     }
@@ -327,7 +381,14 @@ public class Controller {
         dbFacade.startNewBusinessTransaction();
         dbFacade.addRemovedInstaller(in);
     }
-
+    //sebastian
+    public void registerRemovedUser (User u) {
+        currentUser = u;
+        processingUser = true;
+        dbFacade.startNewBusinessTransaction();
+        dbFacade.registerRemovedUser(u);
+    }
+    //Sebastian
     public boolean saveDeletedInstallers() {
         boolean status = false;
         if (currentInstaller != null) {
@@ -343,7 +404,7 @@ public class Controller {
         dbFacade.startNewBusinessTransaction();
         dbFacade.registerRemovedVehicle(v);
     }
-    
+    //Frederik
     public boolean saveRemovedVehicles() {
         boolean status = false;
         if (currentVehicle != null) {
@@ -352,7 +413,7 @@ public class Controller {
         }
         return status;
     }
-    
+    //Frederik
     public boolean saveDeletedOrderDetails() {
         boolean status = false;
         if (currentOrderDetail != null) {
@@ -361,13 +422,23 @@ public class Controller {
         }
         return status;
     }
-
+    //
     public boolean saveOrder() {
         boolean status = false;
         if (processingOrder) {
             status = dbFacade.commitBusinessTransaction();
             processingOrder = false;
             currentOrder = null;
+        }
+        return status;
+    }
+    //sebastian
+    public boolean saveUsers() {
+        boolean status = false;
+        if(processingUser) {
+            status = dbFacade.commitBusinessTransaction();
+            processingUser = false;
+            currentUser = null;
         }
         return status;
     }
@@ -392,7 +463,7 @@ public class Controller {
         }
         return status;
     }
-
+    //Sebastian & Frederik
     public BigDecimal calcDeposit(Order o, int deposit) {
         return calcTotal(o, 100 - deposit);
     }
@@ -423,11 +494,11 @@ public class Controller {
         result = new BigDecimal(totalPris).setScale(2, BigDecimal.ROUND_HALF_UP);
         return result;
     }
-
+    //Sebastian & Frederik
     public BigDecimal calcTotal(Order o) {
         return calcTotal(o, o.getDiscount());
     }
-
+    //Sebastian & Frederik
     public double calcDiscount(int discount, double totalpris) {
         double d = 1 / (double) discount;
         d = 1 - d;
@@ -465,14 +536,23 @@ public class Controller {
     //Sebastian
     public boolean tryLogin(String username, String password)
     {
-        if(currentUser != null){
+        if(activeUser != null){
             return false;
         }
         dbFacade.startNewBusinessTransaction();
-        currentUser = dbFacade.getUser(username, password);
-        if(currentUser == null){
+        activeUser = dbFacade.getUser(username, password);
+        if (activeUser == null) {
             return false;
         }
         return true;
+    }
+    //Sebastian
+    public String cropTime(String time) {
+        String[] split = time.split(" "); //del Stringen ved Whitespace.
+        String[] split2 = split[1].split(":"); //Del ved colon
+        String en = split2[0]; //assign første entry til string.
+        String to = split2[1]; 
+        String finaltime = en.concat(":"+to); //sammensæt de to variabler med colon
+        return finaltime;
     }
 }

@@ -23,6 +23,9 @@ public class UnitOfWork {
     private ArrayList<Vehicle> removedVehicles;
     private ArrayList<Vehicle> newVehicles;
     private ArrayList<Product> newProducts;
+    private ArrayList<User> newUsers;
+    private ArrayList<User> dirtyUsers;
+    private ArrayList<User> removedUsers;
 
     public UnitOfWork() {
         dirtyProducts = new ArrayList();
@@ -38,6 +41,9 @@ public class UnitOfWork {
         removedVehicles = new ArrayList();
         newVehicles = new ArrayList();
         newProducts = new ArrayList();
+        newUsers  = new ArrayList();
+        dirtyUsers = new ArrayList();
+        removedUsers = new ArrayList();
     }
 
     public void addDirtyOrder(Order o) {
@@ -84,6 +90,23 @@ public class UnitOfWork {
     public void registerDirtyCustomer(Customer c) {
         if (!dirtyCustomers.contains(c)) {
             dirtyCustomers.add(c);
+        }
+    } //sebastian
+    public void registerNewUser (User u) {
+           if (!newUsers.contains(u) && !dirtyUsers.contains(u)) {
+            newUsers.add(u);
+        }
+    }
+    //sebastian
+    public void registerDirtyUser(User u) {
+        if(!dirtyUsers.contains(u)) {
+            dirtyUsers.add(u);
+        }
+    }
+    //sebastian
+    public void registerRemovedUser(User u) {
+        if (!dirtyUsers.contains(u) && !newUsers.contains(u) && !removedUsers.contains(u)) {
+            removedUsers.add(u);
         }
     }
 
@@ -141,12 +164,13 @@ public class UnitOfWork {
             conn.setAutoCommit(false);
             OrderMapper om = new OrderMapper();
             ProductMapper pm = new ProductMapper();
-            CustomerMapper cm = new CustomerMapper(); //sebastian
+            CustomerMapper cm = new CustomerMapper();
+            UserMapper um = new UserMapper();
 
             status = status && om.insertOrders(newOrders, conn);
             status = status && om.insertOrderDetails(newOrderDetails, conn);
             status = status && pm.updateProducts(dirtyProducts, conn);
-            status = status && cm.insertCustomers(newCustomers, conn); //sebastian
+            status = status && cm.insertCustomers(newCustomers, conn);
             status = status && om.insertInstallers(newInstallers, conn);
             status = status && om.removeOrderDetails(removedOrderDetails, conn);
             status = status && om.removeInstallers(removedInstallers, conn);
@@ -155,6 +179,9 @@ public class UnitOfWork {
             status = status && om.insertBookedVehicles(newVehicles, conn);
             status = status && om.removeBookedVehicles(removedVehicles, conn);
             status = status && pm.insertProducts(newProducts, conn);
+            status = status && um.insertUsers(newUsers, conn);
+            status = status && um.updateUsers(dirtyUsers, conn);
+            status = status && um.removeUsers(removedUsers, conn);
             if (!status) {
                 throw new Exception("Business Transaction aborted");
             }
